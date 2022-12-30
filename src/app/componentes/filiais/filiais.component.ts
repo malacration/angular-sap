@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FiliaisService } from 'src/app/service/filiais.service';
 import { PurchaseDownPaymentsService } from 'src/app/service/purchase-down-payments-service';
 //import { FiliaisService } from 'src/app/service/filiais.service';
 
@@ -8,13 +9,13 @@ import { PurchaseDownPaymentsService } from 'src/app/service/purchase-down-payme
   styleUrls: ['./filiais.component.css'],
 })
 export class FiliaisComponent implements OnInit {
-  constructor(private adiantamentoService: PurchaseDownPaymentsService) {}
+  constructor(private filiaisService: FiliaisService) {}
 
   ngOnInit() {}
 
   exibir() {
-    //this.filiaisService.get().subscribe((it) => {
-    //  console.log(it);
-    //});
+    this.filiaisService.get().subscribe((it) => {
+      console.log(it);
+    });
   }
 }
