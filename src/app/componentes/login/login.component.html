@@ -1,12 +1,28 @@
 <div *ngIf="!isLogado">
-  <div>
-    <label for="username">Usuario:</label>
-    <input type="text" />
-  </div>
-  <div>
-    <label for="username">Senha:</label>
-    <input type="text" />
-  </div>
-  <button (click)="sigin()">Sign in</button>
+  <form>
+    <div>
+      <label for="CompanyDB">CompanyDB:</label>
+      <input
+        [(ngModel)]="login.CompanyDB"
+        name="CompanyDB"
+        type="text"
+        value="SBOHOMOLOG2612"
+      />
+    </div>
+    <div>
+      <label for="UserName">UserName:</label>
+      <input
+        [(ngModel)]="login.UserName"
+        name="UserName"
+        type="text"
+        value="ROVEMA"
+      />
+    </div>
+    <div>
+      <label for="Password">Password:</label>
+      <input [(ngModel)]="login.Password" name="Password" type="text" />
+    </div>
+    <button (click)="sigin()">Sign in</button>
+  </form>
 </div>
 <div *ngIf="isLogado">Sign on <button (click)="logout()">Sign out</button></div>

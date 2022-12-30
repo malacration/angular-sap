@@ -3,16 +3,19 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HelloComponent } from './hello.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './service/config-service';
 import { LoginComponent } from './componentes/login/login.component';
+import { LoginService } from './service/login-service';
+import { AdiantamentoComponent } from './componentes/adiantamento/adiantamento.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule],
-  declarations: [AppComponent, HelloComponent, LoginComponent],
+  imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule],
+  declarations: [AppComponent, LoginComponent, AdiantamentoComponent],
   bootstrap: [AppComponent],
   providers: [
+    LoginService,
     {
       provide: ConfigService,
       useFactory: (it) => {

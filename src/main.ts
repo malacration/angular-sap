@@ -3,11 +3,12 @@ import './polyfills';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
-
+/**
 const promiseGetConfig = fetch('config').then<any>((response) => {
   console.log('Recuperando config em tempo de execução');
   response;
 });
+ */
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
