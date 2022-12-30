@@ -1,0 +1,12 @@
+<div *ngIf="!isLogado">
+  <div>
+    <label for="username">Usuario:</label>
+    <input type="text" />
+  </div>
+  <div>
+    <label for="username">Senha:</label>
+    <input type="text" />
+  </div>
+  <button (click)="sigin()">Sign in</button>
+</div>
+<div *ngIf="isLogado">Sign on <button (click)="logout()">Sign out</button></div>
