@@ -4,6 +4,7 @@ export class DocumentLine {
   TaxCode: String;
   UnitPrice: number;
   LineTotal: number;
+  BPLId : number = 2;
 
   constructor(
     itemCode: String,
@@ -16,5 +17,6 @@ export class DocumentLine {
     this.TaxCode = taxCode;
     this.UnitPrice = unitPrice;
     this.LineTotal = qtd * unitPrice;
+    this.BPLId = 2;
   }
 }
