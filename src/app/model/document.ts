@@ -4,5 +4,5 @@ export class Document {
   CardCode: String;
   DocumentLines: Array<DocumentLine>;
   DocTotal: number;
-  BPLId: String = '-2';
+  BPLId : number = 2
 }
