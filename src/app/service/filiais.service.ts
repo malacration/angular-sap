@@ -14,10 +14,10 @@ export class FiliaisService {
   }
 
   getByCnpj(cnpj : String): Observable<any> {
-    let url = this.host + '/b1s/v1/Branches?$filter=VATRegNum eq '+cnpj;
+    let url = this.host + '/b1s/v1/Branches'
 
-    return this.http.post<String>(this.host + 'b1s/v1/BranchesService_GetBranchList',"")
+    return this.http.post<String>(this.host + '/b1s/v1/BranchesService_GetBranchList',"")
 
-    //return this.http.get<String>(url);
+    return this.http.get<String>(url);
   }
 }
