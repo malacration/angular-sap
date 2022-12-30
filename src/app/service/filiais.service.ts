@@ -12,4 +12,9 @@ export class FiliaisService {
     let url = this.host + '/b1s/v1/Branches';
     return this.http.get<String>(url);
   }
+
+  getByCnpj(cnpj : String): Observable<any> {
+    let url = this.host + '/b1s/v1/Branches?$filter=VATRegNum='+cnpj;
+    return this.http.get<String>(url);
+  }
 }

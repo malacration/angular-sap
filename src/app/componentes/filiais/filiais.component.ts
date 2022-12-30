@@ -11,8 +11,16 @@ export class FiliaisComponent implements OnInit {
 
   ngOnInit() {}
 
+  cnpj : String = '';
+
   exibir() {
     this.filiaisService.get().subscribe((it) => {
+      console.log(it);
+    });
+  }
+
+  exibirByCnpj() {
+    this.filiaisService.getByCnpj(this.cnpj).subscribe((it) => {
       console.log(it);
     });
   }
