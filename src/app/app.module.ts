@@ -10,10 +10,17 @@ import { LoginService } from './service/login-service';
 import { AdiantamentoComponent } from './componentes/adiantamento/adiantamento.component';
 import { CommonModule } from '@angular/common';
 import { PurchaseDownPaymentsService } from './service/purchase-down-payments-service';
+import { FiliaisComponent } from './componentes/filiais/filiais.component';
+import { FiliaisService } from './service/filiais.service';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule],
-  declarations: [AppComponent, LoginComponent, AdiantamentoComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    AdiantamentoComponent,
+    FiliaisComponent,
+  ],
   bootstrap: [AppComponent],
   providers: [
     LoginService,
