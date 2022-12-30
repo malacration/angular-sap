@@ -1,0 +1,12 @@
+---
+version: "3"
+services:
+  frontend:
+    build: .
+    volumes:
+      - ./:/usr/src/app
+    ports:
+     - 4200:4200
+    environment:
+      NODE_ENV: development
+    command: sh /usr/src/app/entrypoint.sh
