@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FiliaisService } from 'src/app/service/filiais.service';
-import { PurchaseDownPaymentsService } from 'src/app/service/purchase-down-payments-service';
-//import { FiliaisService } from 'src/app/service/filiais.service';
 
 @Component({
   selector: 'app-filiais',
