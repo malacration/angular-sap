@@ -20,10 +20,4 @@ export class AdiantamentoComponent implements OnInit {
       alert('Adiantamento criado');
     });
   }
-
-  aprovar() {
-    this.adiantamentoService.aprovar().subscribe((it) => {
-      alert('aprovação completa');
-    });
-  }
 }
