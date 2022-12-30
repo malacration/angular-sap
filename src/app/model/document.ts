@@ -1,6 +1,7 @@
-import { DocumentLines } from './document-lines';
+import { DocumentLine } from './document-line';
 
 export class Document {
   CardCode: String;
-  DocumentLines: Array<DocumentLines>;
+  DocumentLines: Array<DocumentLine>;
+  DocTotal: number;
 }

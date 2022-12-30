@@ -1,18 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DocumentPayment } from '../model/document-payment';
+import { ConfigService } from './config-service';
 
 @Injectable()
 export class PurchaseDownPaymentsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private config: ConfigService) {}
+  host = this.config.getHost();
 
-  host = 'https://localhost:50000';
-  url = this.host + '/b1s/v1/PurchaseDownPaymentsService_GetApprovalTemplates';
+  create(document: DocumentPayment): Observable<any> {
+    let url = this.host + '/b1s/v1/PurchaseDownPayments';
+    return this.http.post<String>(url, document);
+  }
 
-  create(document: DocumentPayment) {
-    return this.http.post<String>(
-      'https://hanab1:50000/b1s/v1/Login',
-      document
-    );
+  aprovar(): Observable<any> {
+    let url =
+      this.host + '/b1s/v1/PurchaseDownPaymentsService_HandleApprovalRequest';
+    return this.http.post<String>(url, null);
   }
 }
