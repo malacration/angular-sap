@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { PurchaseDownPaymentsService } from './service/purchase-down-payments-service';
 import { FiliaisComponent } from './componentes/filiais/filiais.component';
 import { FiliaisService } from './service/filiais.service';
+import { BusinessPartnersService } from './service/business-partners.service';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule],
@@ -26,6 +27,7 @@ import { FiliaisService } from './service/filiais.service';
     LoginService,
     FiliaisService,
     PurchaseDownPaymentsService,
+    BusinessPartnersService,
     {
       provide: ConfigService,
       useFactory: (it) => {

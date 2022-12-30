@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BusinessPartnersService } from 'src/app/service/business-partners.service';
 import { FiliaisService } from 'src/app/service/filiais.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { FiliaisService } from 'src/app/service/filiais.service';
   styleUrls: ['./filiais.component.css'],
 })
 export class FiliaisComponent implements OnInit {
-  constructor(private filiaisService: FiliaisService) {}
+  constructor(private filiaisService: FiliaisService, private businesPartnersService : BusinessPartnersService) {}
 
   ngOnInit() {}
 
@@ -21,6 +22,12 @@ export class FiliaisComponent implements OnInit {
 
   exibirByCnpj() {
     this.filiaisService.getByCnpj(this.cnpj).subscribe((it) => {
+      console.log(it);
+    });
+  }
+
+  parceiro() {
+    this.businesPartnersService.getByCpfCnpj(this.cnpj).subscribe((it) => {
       console.log(it);
     });
   }
