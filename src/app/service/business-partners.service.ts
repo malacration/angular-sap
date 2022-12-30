@@ -14,6 +14,6 @@ export class BusinessPartnersService {
     let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0)'
     let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode and BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
     let url = this.host + '/b1s/v1/BusinessPlaces?'+crossJoin+expand+filter
-    return this.http.get<String>(url).pipe(it => it['value']);
+    return this.http.get<String>(url);
   }
 }
