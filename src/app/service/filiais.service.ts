@@ -16,7 +16,7 @@ export class FiliaisService {
   getByCnpj(cnpj : String): Observable<any> {
     let url = this.host + '/b1s/v1/Branches?$filter=VATRegNum eq '+cnpj;
 
-    this.http.post<String>(this.host + 'b1s/v1/BranchesService_GetBranchList',null).subscribe(it => console.log(it));
+    this.http.post<String>(this.host + 'b1s/v1/BranchesService_GetBranchList',"").subscribe(it => console.log(it));
 
     return this.http.get<String>(url);
   }
