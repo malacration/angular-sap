@@ -6,7 +6,10 @@ export class DocumentPayment extends Document {
     super();
     this.CardCode = cardCode;
     this.DocumentLines = documentLines;
-    this.DocTotal = 100;
+    this.DocTotal = documentLines
+      .map((it) => it.LineTotal)
+      .reduce((sum, current) => sum + current, 0);
+    this.BPLId = 55;
   }
   DownPaymentType: String = 'dptInvoice';
 }

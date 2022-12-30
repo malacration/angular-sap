@@ -4,4 +4,5 @@ export class Document {
   CardCode: String;
   DocumentLines: Array<DocumentLine>;
   DocTotal: number;
+  BPLId: number;
 }
