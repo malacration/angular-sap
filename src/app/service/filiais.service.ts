@@ -9,15 +9,12 @@ export class FiliaisService {
   host = this.config.getHost();
 
   get(): Observable<any> {
-    let url = this.host + '/b1s/v1/Branches';
+    let url = this.host + '/b1s/v1/BusinessPlaces';
     return this.http.get<String>(url);
   }
 
   getByCnpj(cnpj : String): Observable<any> {
-    let url = this.host + '/b1s/v1/Branches'
-
-    return this.http.post<String>(this.host + '/b1s/v1/BranchesService_GetBranchList',"")
-
+    let url = this.host + '/b1s/v1/BusinessPlaces?$filter=FederalTaxID eq '+cnpj
     return this.http.get<String>(url);
   }
 }

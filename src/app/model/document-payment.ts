@@ -9,7 +9,7 @@ export class DocumentPayment extends Document {
     this.DocTotal = documentLines
       .map((it) => it.LineTotal)
       .reduce((sum, current) => sum + current, 0);
-    this.BPLId = -2;
+    this.BPLId = '-2';
   }
   DownPaymentType: String = 'dptInvoice';
 }
