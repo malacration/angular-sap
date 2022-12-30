@@ -13,7 +13,7 @@ export class BusinessPartnersService {
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'
     let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0)'
     let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode and BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
-    let url = this.host + '/b1s/v1/BusinessPlaces?'+crossJoin+expand+filter
+    let url = this.host + '/b1s/v1/BusinessPlaces/'+crossJoin+expand+filter
     return this.http.get<String>(url);
   }
 }
