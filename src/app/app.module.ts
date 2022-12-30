@@ -24,6 +24,7 @@ import { FiliaisService } from './service/filiais.service';
   bootstrap: [AppComponent],
   providers: [
     LoginService,
+    FiliaisService,
     PurchaseDownPaymentsService,
     {
       provide: ConfigService,
