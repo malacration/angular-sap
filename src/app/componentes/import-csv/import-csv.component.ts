@@ -4,8 +4,9 @@ import * as moment from 'moment';
 import { MaskApplierService } from 'ngx-mask';
 import { ParceiroNegocio } from 'src/app/model/importacao/parceiro-negocio';
 import { BusinessPartnersService } from 'src/app/service/business-partners.service';
+import { FiliaisService } from 'src/app/service/filiais.service';
 import { ImportacaoToSap } from 'src/app/service/importao-to-sap.service';
-
+import { DocumentService } from '../../service/document-service'
 
 
 @Component({
@@ -17,24 +18,14 @@ export class ImportCsvComponent implements OnInit {
 
   constructor(private importaoToSaoService : ImportacaoToSap, 
     private maskService: MaskApplierService,
-    private bussinesPartners : BusinessPartnersService
+    private bussinesPartners : BusinessPartnersService,
+    private filialService : FiliaisService,
+    private documentoService : DocumentService
     ) {}
   dados : Array<ParceiroNegocio> = new Array()
   csvToRowArray : string[]
 
   ngOnInit() {
-    // .mask("999.999.999-99");
-    // } else {
-    //     $("#cpfcnpj").mask("99.999.999/9999-99");
-    let resultado = this.maskService.applyMask("02118203000102","99.999.999/9999-99")
-    let pn = new ParceiroNegocio(resultado,332,"665",500,new Date())
-    pn.addDocumento(332,"665",1550,new Date())
-    pn.addDocumento(111,"665",1550,new Date())
-    this.dados.push(pn)
-  }
-
-  converter(){
-    this.importaoToSaoService.parse(this.dados[0])
   }
 
   validarParceiro(){
@@ -60,13 +51,12 @@ export class ImportCsvComponent implements OnInit {
     for (let index = 1; index < this.csvToRowArray.length; index++) {
       let row = this.csvToRowArray[index].split(";");
       let cpfCnpj = ""
-      
       // if(row[cpfParceiro].length == 14)
       //   cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"99.999.999/9999-99")
       // else if(row[cpfParceiro].length == 11)
       //   cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"999.999.999-99")
       // else
-        cpfCnpj = row[cpfParceiro]
+      cpfCnpj = row[cpfParceiro]
 
       let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
       if(dadosFiltrado.length == 1){
@@ -102,6 +92,17 @@ export class ImportCsvComponent implements OnInit {
   }
 
   cadastrarNfentrada(){
+    this.dados.filter(it => it.codSap != "?").forEach(it => {
+      this.importaoToSaoService.parse(this.dados[0]).subscribe(resul => {
+        resul.forEach(nf => {
+          this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+            nf.BPL_IDAssignedToInvoice = filialCod;
+            this.documentoService.cadastrarNotaFiscalEntrada(nf)
+          })
+        })
+      })
+    })
+    
     
   }
 

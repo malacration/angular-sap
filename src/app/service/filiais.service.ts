@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ConfigService } from './config-service';
 
 @Injectable()
@@ -13,8 +13,8 @@ export class FiliaisService {
     return this.http.get<String>(url);
   }
 
-  getByCnpj(cnpj : String): Observable<any> {
+  getByCnpj(cnpj : String): Observable<number> {
     let url = this.host + '/b1s/v1/BusinessPlaces?$filter=FederalTaxID eq '+"'"+cnpj+"'"
-    return this.http.get<String>(url);
+    return this.http.get<any>(url).pipe(map(it => it.value[0].BPLID));
   }
 }

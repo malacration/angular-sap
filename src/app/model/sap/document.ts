@@ -12,6 +12,7 @@ export class Document {
   JournalMemo = "Migração de Saldo Inicial"
   SequenceCode = -2
   SequenceSerial : number
+  cnpjFilial : String;
 }
 
 

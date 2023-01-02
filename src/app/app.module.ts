@@ -7,7 +7,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './service/config-service';
 import { LoginComponent } from './componentes/login/login.component';
 import { LoginService } from './service/login-service';
-import { AdiantamentoComponent } from './componentes/adiantamento/adiantamento.component';
 import { CommonModule } from '@angular/common';
 import { DocumentService } from './service/document-service';
 import { FiliaisComponent } from './componentes/filiais/filiais.component';
@@ -32,7 +31,6 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
   declarations: [
     AppComponent,
     LoginComponent,
-    AdiantamentoComponent,
     FiliaisComponent,
     ImportCsvComponent,
   ],

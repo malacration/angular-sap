@@ -26,7 +26,7 @@ export class DocumentoFiscal{
         let docLines = new Array()
         let total = this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current, 0)
         docLines.push(new DocumentLine(COD_ITEM,1,COD_IMPOSTO,total))
-        let document = new PurchaseInvoice(cardCode,docLines,this.numeroDocumento as number)
+        let document = new PurchaseInvoice(cardCode,docLines,this.numeroDocumento,this.cnpjFilial)
         document.DocumentInstallments = this.parcelas.map(it => it.get())
         return document
     }

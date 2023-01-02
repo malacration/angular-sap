@@ -21,7 +21,7 @@ export class DocumentService {
     return this.http.get<String>(url);
   }
 
-  notaFiscalEntrada(document: PurchaseInvoice): Observable<any> {
+  cadastrarNotaFiscalEntrada(document: PurchaseInvoice): Observable<any> {
     let url = this.host + '/b1s/v1/PurchaseInvoices';
     return this.http.post<String>(url, document);
   }
