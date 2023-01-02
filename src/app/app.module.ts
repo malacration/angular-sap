@@ -15,9 +15,10 @@ import { FiliaisService } from './service/filiais.service';
 import { BusinessPartnersService } from './service/business-partners.service';
 import { ImportCsvComponent } from './componentes/import-csv/import-csv.component';
 import { ImportacaoToSap } from './service/importao-to-sap.service';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule],
+  imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule,NgbCollapseModule],
   declarations: [
     AppComponent,
     LoginComponent,
