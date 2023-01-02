@@ -1,3 +1,4 @@
+import { Installment } from "../sap/installment";
 
 export class Parcela{
     valor : number
@@ -6,5 +7,9 @@ export class Parcela{
     constructor(valor : number, dataVecimento : Date){
         this.valor = valor;
         this.dataVencimento = dataVecimento
+    }
+
+    get() : Installment{
+        return new Installment(this.dataVencimento,this.valor)
     }
 }

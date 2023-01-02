@@ -1,3 +1,6 @@
+import { DocumentLine } from "../sap/document-line"
+import { PurchaseInvoice } from "../sap/purchase-Invoice"
+import { COD_IMPOSTO, COD_ITEM } from "./constantes"
 import { Parcela } from "./parcela"
 
 
@@ -17,6 +20,15 @@ export class DocumentoFiscal{
     addParcela(valor : number, dataVecimento : Date){
         let parcela = new Parcela(valor,dataVecimento)
         this.parcelas.push(parcela)
+    }
+
+    getPurchaseInvoice(cardCode : String) : PurchaseInvoice{
+        let docLines = new Array()
+        let total = this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current, 0)
+        docLines.push(new DocumentLine(COD_ITEM,1,COD_IMPOSTO,total))
+        let document = new PurchaseInvoice(cardCode,docLines)
+        document.DocumentInstallments = this.parcelas.map(it => it.get())
+        return document
     }
     
 }

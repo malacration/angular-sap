@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import { Installment } from 'src/app/model/installment';
-import { PurchaseInvoice } from 'src/app/model/purchase-Invoice';
-import { DocumentLine } from '../../model/document-line';
+import { COD_IMPOSTO, COD_ITEM } from 'src/app/model/importacao/constantes';
+import { DocumentLine } from 'src/app/model/sap/document-line';
+import { Installment } from 'src/app/model/sap/installment';
+import { PurchaseInvoice } from 'src/app/model/sap/purchase-Invoice';
 import { DocumentService as DocumentService } from '../../service/document-service';
 
 @Component({
@@ -18,7 +19,7 @@ export class AdiantamentoComponent implements OnInit {
   idNfEntrada : String = "";
 
   run() {
-    let documentLines = new DocumentLine('USO0000402', 1, "2101-009", 100);
+    let documentLines = new DocumentLine(COD_ITEM, 1, COD_IMPOSTO, 100);
     let document = new PurchaseInvoice('FOR0000490', [documentLines]);
 
     document.DocumentInstallments = new Array()

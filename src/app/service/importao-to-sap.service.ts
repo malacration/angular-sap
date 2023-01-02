@@ -3,6 +3,7 @@ import { ParceiroNegocio } from "../model/importacao/parceiro-negocio";
 import { BusinessPartnersService } from "./business-partners.service";
 import { FiliaisService } from "./filiais.service";
 import {PurchaseInvoice} from "../model/sap/purchase-Invoice"
+import { map, Observable } from "rxjs";
 
 @Injectable()
 export class ImportacaoToSap{
@@ -10,10 +11,9 @@ export class ImportacaoToSap{
     constructor(private filialService : FiliaisService, private businessPartners : BusinessPartnersService) {}
 
     
-    parse(parceiro : ParceiroNegocio) : Array<PurchaseInvoice>{
-        this.businessPartners.getByCpfCnpj(parceiro.cpfCnpj).subscribe(it =>{
-            console.log("codigo ",it)
-        })
-        return null
+    parse(parceiro : ParceiroNegocio) : Observable<Array<PurchaseInvoice>> {
+        return this.businessPartners.getByCpfCnpj(parceiro.cpfCnpj).pipe(map(cardCode =>
+            parceiro.documentosFiscais.map(it => it.getPurchaseInvoice(cardCode))
+        ))
     }
 }
