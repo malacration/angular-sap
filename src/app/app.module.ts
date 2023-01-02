@@ -13,6 +13,7 @@ import { PurchaseDownPaymentsService } from './service/purchase-down-payments-se
 import { FiliaisComponent } from './componentes/filiais/filiais.component';
 import { FiliaisService } from './service/filiais.service';
 import { BusinessPartnersService } from './service/business-partners.service';
+import { ImportCsvComponent } from './componentes/import-csv/import-csv.component';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule],
@@ -21,6 +22,7 @@ import { BusinessPartnersService } from './service/business-partners.service';
     LoginComponent,
     AdiantamentoComponent,
     FiliaisComponent,
+    ImportCsvComponent,
   ],
   bootstrap: [AppComponent],
   providers: [
