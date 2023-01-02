@@ -9,15 +9,17 @@ export class BusinessPartnersService {
   host = this.config.getHost();
 
   get(id : String): Observable<String> {
-    let url = this.host + '/b1s/v1/BusinessPartners?$filter=CardCode eq'+id
+    let url = this.host + '/b1s/v1/BusinessPartners?$filter=CardCode eq '+"'"+id+"'"
     return this.http.get<any>(url);
   }
 
   getByCpfCnpj(cpfCnpj : String): Observable<String> {
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'
-    let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0)'
-    let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode and BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
-    let url = this.host + '/b1s/v1/'+crossJoin+expand+filter
+    let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,Series),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0)'
+    let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode '
+    let filter1 = ' and (BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
+    let filter2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj+'\') and BusinessPartners/Series eq 78'
+    let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+filter1+filter2
     return this.http.get<any>(url).pipe(map(n => n.value[0].BusinessPartners.CardCode));
   }
 }
