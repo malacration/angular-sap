@@ -14,6 +14,7 @@ import { FiliaisComponent } from './componentes/filiais/filiais.component';
 import { FiliaisService } from './service/filiais.service';
 import { BusinessPartnersService } from './service/business-partners.service';
 import { ImportCsvComponent } from './componentes/import-csv/import-csv.component';
+import { ImportacaoToSap } from './service/importao-to-sap.service';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule],
@@ -30,6 +31,7 @@ import { ImportCsvComponent } from './componentes/import-csv/import-csv.componen
     FiliaisService,
     PurchaseDownPaymentsService,
     BusinessPartnersService,
+    ImportacaoToSap,
     {
       provide: ConfigService,
       useFactory: (it) => {
