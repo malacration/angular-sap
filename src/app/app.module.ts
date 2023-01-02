@@ -17,8 +17,18 @@ import { ImportCsvComponent } from './componentes/import-csv/import-csv.componen
 import { ImportacaoToSap } from './service/importao-to-sap.service';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { IConfig, MaskApplierService, NgxMaskModule } from 'ngx-mask'
+
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+
+
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, CommonModule,NgbCollapseModule],
+  imports: [BrowserModule, FormsModule, 
+    HttpClientModule,
+    CommonModule,
+    NgbCollapseModule,
+    NgxMaskModule.forRoot()
+  ],
   declarations: [
     AppComponent,
     LoginComponent,
@@ -33,6 +43,7 @@ import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
     DocumentService,
     BusinessPartnersService,
     ImportacaoToSap,
+    MaskApplierService,
     {
       provide: ConfigService,
       useFactory: (it) => {

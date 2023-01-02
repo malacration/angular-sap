@@ -8,6 +8,10 @@ export class BusinessPartnersService {
   constructor(private config: ConfigService, private http: HttpClient) {}
   host = this.config.getHost();
 
+  get(id : String): Observable<String> {
+    let url = this.host + '/b1s/v1/BusinessPartners?$filter=CardCode eq'+id
+    return this.http.get<any>(url);
+  }
 
   getByCpfCnpj(cpfCnpj : String): Observable<String> {
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'

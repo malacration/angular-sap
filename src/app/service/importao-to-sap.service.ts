@@ -10,7 +10,6 @@ export class ImportacaoToSap{
 
     constructor(private filialService : FiliaisService, private businessPartners : BusinessPartnersService) {}
 
-    
     parse(parceiro : ParceiroNegocio) : Observable<Array<PurchaseInvoice>> {
         return this.businessPartners.getByCpfCnpj(parceiro.cpfCnpj).pipe(map(cardCode =>
             parceiro.documentosFiscais.map(it => it.getPurchaseInvoice(cardCode))

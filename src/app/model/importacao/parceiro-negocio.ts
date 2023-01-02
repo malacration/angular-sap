@@ -6,6 +6,7 @@ export class ParceiroNegocio{
     cpfCnpj : String
     documentosFiscais : Array<DocumentoFiscal> = new Array()
     isCollapsed = true;
+    codSap = "?"
     
     constructor(cpfCnpj : String, numeroDocumentoFiscal : number, cnpjFilial : String, valor : number, dataVecimento : Date){
         this.cpfCnpj = cpfCnpj

@@ -6,11 +6,16 @@
 <h1>Import Csv</h1>
 <input type="file" (change)="onFileSelect($event.target)" />
 <button (click)="carregarCsv()">Enviar</button>
+<button (click)="limpar()">Limpar</button>
 <hr>
 <h2>Dados Para importação</h2>
+
+<button (click)="converter()">Converter</button>
+<button (click)="validarParceiro()">Validar Parceiro</button>
+
 <div class="card" *ngFor="let pn of dados">
     <div class="card-header" (click)="pn.isCollapsed = ! pn.isCollapsed">
-        cnpj : {{pn.cpfCnpj}}
+        cnpj : {{pn.cpfCnpj}} - {{pn.codSap}}
     </div>
     <div style="margin: 5px;" class="card-body" *ngFor="let nf of pn.documentosFiscais" #collapse="ngbCollapse" [(ngbCollapse)]="pn.isCollapsed">
         Nota - {{nf.numeroDocumento}}
@@ -20,4 +25,4 @@
     </div>
 </div>
 
-<button (click)="converter()">Converter</button>
+<button (click)="cadastrarNfentrada()">Importar Notas fiscais de Entrada</button>

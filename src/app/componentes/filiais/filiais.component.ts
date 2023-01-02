@@ -26,6 +26,12 @@ export class FiliaisComponent implements OnInit {
     });
   }
 
+  exibirById() {
+    this.businesPartnersService.get(this.cnpj).subscribe((it) => {
+      console.log(it);
+    });
+  }
+
   parceiro() {
     this.businesPartnersService.getByCpfCnpj(this.cnpj).subscribe((it) => {
       console.log(it);
