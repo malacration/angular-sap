@@ -20,7 +20,7 @@ export class AdiantamentoComponent implements OnInit {
 
   run() {
     let documentLines = new DocumentLine(COD_ITEM, 1, COD_IMPOSTO, 100);
-    let document = new PurchaseInvoice('FOR0000490', [documentLines]);
+    let document = new PurchaseInvoice('FOR0000490', [documentLines],665);
 
     document.DocumentInstallments = new Array()
     document.DocumentInstallments.push(new Installment(moment("20/01/2023","DD-MM_YYYY").toDate(),50))

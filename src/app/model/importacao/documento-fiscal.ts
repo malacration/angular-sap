@@ -7,11 +7,11 @@ import { Parcela } from "./parcela"
 
 export class DocumentoFiscal{
 
-    numeroDocumento : String
+    numeroDocumento : number
     cnpjFilial : String
     parcelas : Array<Parcela> = new Array()
     
-    constructor(numero : String, cnpjFilial : String, valor : number, dataVecimento : Date){
+    constructor(numero : number, cnpjFilial : String, valor : number, dataVecimento : Date){
         this.numeroDocumento = numero
         this.cnpjFilial = cnpjFilial
         this.addParcela(valor, dataVecimento)
@@ -26,7 +26,7 @@ export class DocumentoFiscal{
         let docLines = new Array()
         let total = this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current, 0)
         docLines.push(new DocumentLine(COD_ITEM,1,COD_IMPOSTO,total))
-        let document = new PurchaseInvoice(cardCode,docLines)
+        let document = new PurchaseInvoice(cardCode,docLines,this.numeroDocumento)
         document.DocumentInstallments = this.parcelas.map(it => it.get())
         return document
     }

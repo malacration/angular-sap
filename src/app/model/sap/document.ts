@@ -9,6 +9,9 @@ export class Document {
   DocumentInstallments : Array<Installment>
   DocDate = "2022-12-01"
   Usage = 15
+  JournalMemo = "Migração de Saldo Inicial"
+  SequenceCode = -2
+  SequenceSerial : number
 }
 
 
