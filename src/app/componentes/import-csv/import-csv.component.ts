@@ -16,7 +16,7 @@ export class ImportCsvComponent implements OnInit {
   dados : Array<ParceiroNegocio> = new Array()
 
   ngOnInit() {
-    let pn = new ParceiroNegocio("02118203000102","332","665",500,new Date())
+    let pn = new ParceiroNegocio("02.118.203/0001-02","332","665",500,new Date())
     pn.addDocumento("332","665",1550,new Date())
     pn.addDocumento("111","665",1550,new Date())
     console.log(pn.documentosFiscais.length)

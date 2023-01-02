@@ -9,7 +9,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { LoginService } from './service/login-service';
 import { AdiantamentoComponent } from './componentes/adiantamento/adiantamento.component';
 import { CommonModule } from '@angular/common';
-import { PurchaseDownPaymentsService } from './service/purchase-down-payments-service';
+import { DocumentService } from './service/document-service';
 import { FiliaisComponent } from './componentes/filiais/filiais.component';
 import { FiliaisService } from './service/filiais.service';
 import { BusinessPartnersService } from './service/business-partners.service';
@@ -29,7 +29,7 @@ import { ImportacaoToSap } from './service/importao-to-sap.service';
   providers: [
     LoginService,
     FiliaisService,
-    PurchaseDownPaymentsService,
+    DocumentService,
     BusinessPartnersService,
     ImportacaoToSap,
     {

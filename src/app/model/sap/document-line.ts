@@ -4,7 +4,8 @@ export class DocumentLine {
   TaxCode: String;
   UnitPrice: number;
   LineTotal: number;
-  BPLId : number = 2;
+  Usage = 15
+  AccountCode = "6.1.1.002.00001"
 
   constructor(
     itemCode: String,
@@ -17,6 +18,11 @@ export class DocumentLine {
     this.TaxCode = taxCode;
     this.UnitPrice = unitPrice;
     this.LineTotal = qtd * unitPrice;
-    this.BPLId = 2;
   }
 }
+
+//               "AccountCode" : "1.1.3.004.00001",]
+//               "TaxCode" : "2101-009",
+// "TaxType" : "tt_Yes",
+// "TaxLiable" : "tYES",
+//

@@ -1,0 +1,3 @@
+
+const COD_IMPOSTO = "1933-005I"
+const COD_ITEM = "USO0000402"

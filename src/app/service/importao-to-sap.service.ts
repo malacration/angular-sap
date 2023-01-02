@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { ParceiroNegocio } from "../model/importacao/parceiro-negocio";
 import { BusinessPartnersService } from "./business-partners.service";
 import { FiliaisService } from "./filiais.service";
-import {PurchaseInvoice} from "../model/purchase-Invoice"
+import {PurchaseInvoice} from "../model/sap/purchase-Invoice"
 
 @Injectable()
 export class ImportacaoToSap{
