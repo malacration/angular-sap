@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Buffer } from 'buffer';
+import { ParceiroNegocio } from 'src/app/model/importacao/parceiro-negocio';
+import { ImportacaoToSap } from 'src/app/service/importao-to-sap.service';
 
 
 @Component({
@@ -8,11 +10,21 @@ import { Buffer } from 'buffer';
   styleUrls: ['./import-csv.component.css'],
 })
 export class ImportCsvComponent implements OnInit {
-  constructor() {}
 
+  constructor(private importaoToSaoService : ImportacaoToSap) {}
+
+  dados : Array<ParceiroNegocio> = new Array()
 
   ngOnInit() {
-    
+    let pn = new ParceiroNegocio("02118203000102","332","665",500,new Date())
+    pn.addDocumento("332","665",1550,new Date())
+    pn.addDocumento("111","665",1550,new Date())
+    console.log(pn.documentosFiscais.length)
+    this.dados.push(pn)
+  }
+
+  converter(){
+    this.importaoToSaoService.parse(this.dados[0])
   }
 
   fileEvent(fileInput: Event){

@@ -1,3 +1,14 @@
 <h1>Import Csv</h1>
 <input type="file" (change)="onFileSelect($event.target)" />
 <button (click)="enviarCsv()">Enviar</button>
+<hr>
+<h2>Dados Para importação</h2>
+<div *ngFor="let pn of dados">
+    cnpj : {{pn.cpfCnpj}}
+    <div *ngFor="let nf of pn.documentosFiscais">
+        Nota : {{nf.numeroDocumento}}
+        <div *ngFor="let parcela of nf.parcelas">
+            pareclas : {{parcela.valor}} - {{parcela.dataVencimento}}
+        </div>
+    </div>
+</div>
