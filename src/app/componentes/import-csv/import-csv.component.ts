@@ -113,7 +113,7 @@ export class ImportCsvComponent implements OnInit {
   }
 
   showErro(pn){
-      console.log(pn)
+      console.log(pn.error)
   }
 
 }
