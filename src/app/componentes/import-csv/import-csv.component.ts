@@ -97,10 +97,11 @@ export class ImportCsvComponent implements OnInit {
           resul.forEach(nf => {
             this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
               nf.BPL_IDAssignedToInvoice = filialCod;
-              this.bussinesPartners.updateFiliais(nf.CardCode,filialCod).subscribe(it => {
+              this.bussinesPartners.updateFiliais(nf.CardCode,filialCod).subscribe(updateBp => {
                 this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
                   console.log("Nota cadastrada com sucecessou")
-                })
+                },
+                (err) => {it.error = err})
               })
             })
           })
