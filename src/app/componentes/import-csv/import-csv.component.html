@@ -10,8 +10,8 @@
 <hr>
 <h2>Dados Para importação</h2>
 
-<button (click)="validarParceiro()">Validar Parceiro</button>
-
+<button (click)="validarParceiro()">Validar Fornecedor</button>
+<button (click)="validarCliente()">Validar Cliente</button>
 <div class="card" *ngFor="let pn of dados">
     <div class="card-header" (click)="pn.isCollapsed = ! pn.isCollapsed">
         cnpj : {{pn.cpfCnpj}} - {{pn.codSap}} <span *ngIf="pn.error" (click)="showErro(pn)">error</span>
@@ -25,3 +25,4 @@
 </div>
 
 <button (click)="cadastrarNfentrada()">Importar Notas fiscais de Entrada</button>
+<button (click)="cadastrarNfSaida()">Importar Notas fiscais de Saida</button>
