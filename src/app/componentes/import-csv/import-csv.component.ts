@@ -99,11 +99,13 @@ export class ImportCsvComponent implements OnInit {
               nf.BPL_IDAssignedToInvoice = filialCod;
               this.bussinesPartners.updateFiliais(nf.CardCode,filialCod).subscribe(updateBp => {
                 this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
-                  console.log("Nota cadastrada com sucecessou")
+                  it.error = "Nota cadastrada com sucesso"
                 },
                 (err) => {
                   if(err && err.error.message.value != '(1) Documento nota fiscal já existe')
-                  it.error = err
+                    it.error = err
+                  else
+                    it.error = "Notas já cadastrada"
                 })
               })
             })

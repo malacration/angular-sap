@@ -7,7 +7,7 @@ export class Document {
   DocTotal: number;
   BPL_IDAssignedToInvoice
   DocumentInstallments : Array<Installment>
-  DocDate = "2022-12-01"
+  DocDate = "2022-12-31"
   Usage = 15
   JournalMemo = "Migração de Saldo Inicial"
   SequenceCode = -2
