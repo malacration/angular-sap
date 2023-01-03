@@ -83,7 +83,6 @@ export class ImportCsvComponent implements OnInit {
         let str = (e.target.result as String)
         let nova = str.replace("data:text/csv;base64,","")
         let csv = Buffer.from(nova, 'base64').toString('binary')
-        console.log(csv)
         this.csvToRowArray = csv.split("\n");
       }
       reader.DONE
@@ -97,7 +96,9 @@ export class ImportCsvComponent implements OnInit {
         resul.forEach(nf => {
           this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
             nf.BPL_IDAssignedToInvoice = filialCod;
-            this.documentoService.cadastrarNotaFiscalEntrada(nf)
+            this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
+              console.log("Nota cadastrada com sucecessou")
+            })
           })
         })
       })

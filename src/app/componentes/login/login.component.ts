@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
   sigin() {
     console.log(this.login);
     this.loginService.login(this.login).subscribe((it) => {
-      console.log(it);
       localStorage.setItem('login', JSON.stringify(this.login));
       this.isLogado = true;
     });
