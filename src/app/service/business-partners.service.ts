@@ -22,4 +22,21 @@ export class BusinessPartnersService {
     let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+filter1+filter2
     return this.http.get<any>(url).pipe(map(n => n.value[0].BusinessPartners.CardCode));
   }
+
+  updateFiliais(cardCode : String, filialId : number){
+    let url = this.host+"/b1s/v1/BusinessPartners('"+cardCode+"')"
+    let body = {
+      BPBranchAssignment : [
+        {
+          "BPCode" : cardCode,
+          "BPLID" : filialId,
+          "DisabledForBP" : "tNO"
+        }
+      ]
+    }
+    return this.http.patch(url,body);
+
+  }
+
+  
 }

@@ -14,7 +14,7 @@
 
 <div class="card" *ngFor="let pn of dados">
     <div class="card-header" (click)="pn.isCollapsed = ! pn.isCollapsed">
-        cnpj : {{pn.cpfCnpj}} - {{pn.codSap}}
+        cnpj : {{pn.cpfCnpj}} - {{pn.codSap}} <span *ngIf="pn.erro" (click)="showErro(pn)">erro</span>
     </div>
     <div style="margin: 5px;" class="card-body" *ngFor="let nf of pn.documentosFiscais" #collapse="ngbCollapse" [(ngbCollapse)]="pn.isCollapsed">
         Nota - {{nf.numeroDocumento}}

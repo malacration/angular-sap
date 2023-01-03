@@ -92,19 +92,27 @@ export class ImportCsvComponent implements OnInit {
 
   cadastrarNfentrada(){
     this.dados.filter(it => it.codSap != "?").forEach(it => {
-      this.importaoToSaoService.parse(this.dados[0]).subscribe(resul => {
-        resul.forEach(nf => {
-          this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
-            nf.BPL_IDAssignedToInvoice = filialCod;
-            this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
-              console.log("Nota cadastrada com sucecessou")
+      try{
+        this.importaoToSaoService.parse(this.dados[0]).subscribe(resul => {
+          resul.forEach(nf => {
+            this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+              nf.BPL_IDAssignedToInvoice = filialCod;
+              this.bussinesPartners.updateFiliais(nf.CardCode,filialCod).subscribe(it => {
+                this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
+                  console.log("Nota cadastrada com sucecessou")
+                })
+              })
             })
           })
         })
-      })
-    })
-    
-    
+      }catch(error){
+        it.error = error;
+      }
+    })    
+  }
+
+  showErro(pn){
+      console.log(pn)
   }
 
 }
