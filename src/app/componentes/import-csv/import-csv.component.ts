@@ -101,7 +101,10 @@ export class ImportCsvComponent implements OnInit {
                 this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
                   console.log("Nota cadastrada com sucecessou")
                 },
-                (err) => {it.error = err})
+                (err) => {
+                  if(err && err.error.message.value != '(1) Documento nota fiscal já existe')
+                  it.error = err
+                })
               })
             })
           })
