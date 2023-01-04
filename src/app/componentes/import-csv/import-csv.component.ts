@@ -59,11 +59,11 @@ export class ImportCsvComponent implements OnInit {
     for (let index = 1; index < this.csvToRowArray.length; index++) {
       let row = this.csvToRowArray[index].split(";");
       let cpfCnpj = ""
-      // if(row[cpfParceiro].length == 14)
-      //   cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"99.999.999/9999-99")
-      // else if(row[cpfParceiro].length == 11)
-      //   cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"999.999.999-99")
-      // else
+      if(row[cpfParceiro].length == 14 && row[cpfParceiro].split('.').length ==1)
+        cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"99.999.999/9999-99")
+      else if(row[cpfParceiro].length == 11 && row[cpfParceiro].split('.').length ==1)
+        cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"999.999.999-99")
+      else
       cpfCnpj = row[cpfParceiro]
       if(cpfCnpj){
         let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
