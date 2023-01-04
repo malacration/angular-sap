@@ -130,7 +130,7 @@ export class ImportCsvComponent implements OnInit {
             })
           })
         }catch(e){
-          console.log(e)
+          console.log("erro cadastra nf")
         }
         
       })
@@ -168,7 +168,7 @@ export class ImportCsvComponent implements OnInit {
             })
           })
         }catch(e){
-          console.log(e)
+          console.log("erro cadastra nf")
         }
         
       })
@@ -176,7 +176,6 @@ export class ImportCsvComponent implements OnInit {
   }
 
   totalDados(){
-    console.log("fiscais",this.dados.flatMap(it => it.documentosFiscais).map(doc => doc.getTotais()))
     return this.dados
       .flatMap(it => it.documentosFiscais)
       .map(doc => doc.getTotais())
