@@ -13,13 +13,17 @@ export class BusinessPartnersService {
     return this.http.get<any>(url);
   }
 
+
+
   getFornecedorByCpfCnpj(cpfCnpj : String): Observable<String> {
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'
     let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,Series),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0)'
     let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode '
     let filter1 = ' and (BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
-    let filter2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj+'\') and BusinessPartners/Series eq 78'
-    let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+filter1+filter2
+    let filter2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj+'\''
+    let semPontos = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\''
+    let semPonto2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\') and BusinessPartners/Series eq 78 '
+    let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+filter1+filter2+semPontos+semPonto2
     return this.http.get<any>(url).pipe(map(n => n.value[0].BusinessPartners.CardCode));
   }
 
@@ -45,7 +49,6 @@ export class BusinessPartnersService {
       ]
     }
     return this.http.patch(url,body);
-
   }
 
   

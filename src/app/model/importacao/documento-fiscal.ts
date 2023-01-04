@@ -30,5 +30,9 @@ export class DocumentoFiscal{
         document.DocumentInstallments = this.parcelas.map(it => it.get())
         return document
     }
+
+    getTotais() : number {
+        return this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current, 0)
+    }
     
 }

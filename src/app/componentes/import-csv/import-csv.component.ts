@@ -29,7 +29,7 @@ export class ImportCsvComponent implements OnInit {
   }
 
   validarParceiro(){
-    this.dados.forEach(it =>{
+    this.dados.filter(it => it && it.cpfCnpj).forEach(it =>{
       this.bussinesPartners.getFornecedorByCpfCnpj(it.cpfCnpj).subscribe(resposta => {
         it.codSap = resposta.toString()
       })
@@ -101,34 +101,39 @@ export class ImportCsvComponent implements OnInit {
   cadastrarNfentrada(){
     this.dados.filter(it => it.codSap != "?").forEach(it => {
       try{
-        this.importaoToSaoService.parse(this.dados[0]).subscribe(resul => {
-          resul.forEach(nf => {
-            this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
-              nf.BPL_IDAssignedToInvoice = filialCod;
-              this.bussinesPartners.updateFiliais(nf.CardCode,filialCod).subscribe(updateBp => {
-                this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
-                  it.error = "Nota cadastrada com sucesso"
-                },
-                (err) => {
-                  if(err && err.error.message.value != '(1) Documento nota fiscal já existe')
-                    it.error = err
-                  else
-                    it.error = "Notas já cadastrada"
-                })
-              })
-            })
-          })
-        })
+        this.cadastrarNf(it)
       }catch(error){
         it.error = error;
       }
     })    
   }
 
+  cadastrarNf(it : ParceiroNegocio){
+    this.importaoToSaoService.parse(it).subscribe(resul => {
+      resul.forEach(nf => {
+        this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+          nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
+          nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
+          this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(updateBp => {
+            this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
+              it.error = "Nota cadastrada com sucesso"
+            },
+            (err) => {
+              if(err && !err.error.error.message.value.includes('já existe'))
+                it.error = err.error.error.message.value
+              else
+                it.error = "Notas já cadastrada"
+            })
+          })
+        })
+      })
+    })
+  }
+
   cadastrarNfSaida(){
     this.dados.filter(it => it.codSap != "?").forEach(it => {
       try{
-        this.importaoToSaoService.parseCliente(this.dados[0]).subscribe(resul => {
+        this.importaoToSaoService.parseCliente(it).subscribe(resul => {
           resul.forEach(nf => {
             this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
               nf.BPL_IDAssignedToInvoice = filialCod;
@@ -136,11 +141,13 @@ export class ImportCsvComponent implements OnInit {
                 this.documentoService.cadastrarNotaFiscalSaida(nf).subscribe(it =>{
                   it.error = "Nota cadastrada com sucesso"
                 },
-                (err) => {
-                  if(err && err.error.message.value != '(1) Documento nota fiscal já existe')
-                    it.error = err
-                  else
-                    it.error = "Notas já cadastrada"
+                (error) => {
+                  console.log("error 2 ->",error.error)
+                  // if(error && error.error.error.message.value != '(1) Documento nota fiscal já existe')
+                  //   it.error = error
+                  // else{
+                  //   it.error = "Notas já cadastrada"
+                  // }
                 })
               })
             })
@@ -154,6 +161,12 @@ export class ImportCsvComponent implements OnInit {
 
   showErro(pn){
       console.log(pn.error)
+  }
+
+  verificaTotal(pn : ParceiroNegocio){
+    this.importaoToSaoService.parseCliente(pn).subscribe(it => {
+      console.log(it)
+    })
   }
 
 }

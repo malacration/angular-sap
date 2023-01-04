@@ -22,13 +22,11 @@ export class DocumentService {
   }
 
   cadastrarNotaFiscalEntrada(document: PurchaseInvoice): Observable<any> {
-    console.log("cadastrando NF",document)
     let url = this.host + '/b1s/v1/PurchaseInvoices';
     return this.http.post<String>(url, document);
   }
 
   cadastrarNotaFiscalSaida(document: PurchaseInvoice): Observable<any> {
-    console.log("cadastrando NF",document)
     let url = this.host + '/b1s/v1/Invoices';
     return this.http.post<String>(url, document);
   }

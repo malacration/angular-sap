@@ -6,6 +6,7 @@ export class DocumentLine {
   LineTotal: number;
   Usage = 15
   AccountCode = "6.1.1.002.00001"
+  WarehouseCode : string
 
   constructor(
     itemCode: String,

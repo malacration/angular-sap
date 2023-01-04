@@ -13,11 +13,14 @@
 <button (click)="validarParceiro()">Validar Fornecedor</button>
 <button (click)="validarCliente()">Validar Cliente</button>
 <div class="card" *ngFor="let pn of dados">
-    <div class="card-header" (click)="pn.isCollapsed = ! pn.isCollapsed">
-        cnpj : {{pn.cpfCnpj}} - {{pn.codSap}} <span *ngIf="pn.error" (click)="showErro(pn)">error</span>
+    <div class="card-header">
+        {{pn.cpfCnpj}} - {{pn.codSap}} - total : {{pn.getTotais()}} 
+        <span *ngIf="pn.error" (click)="showErro(pn)">{{pn.error}}</span>
+        <button (click)="cadastrarNf(pn); verificaTotal(pn)"> Cadastrar </button> 
+        <button (click)="pn.isCollapsed = ! pn.isCollapsed">Colapsar</button>
     </div>
     <div style="margin: 5px;" class="card-body" *ngFor="let nf of pn.documentosFiscais" #collapse="ngbCollapse" [(ngbCollapse)]="pn.isCollapsed">
-        Nota - {{nf.numeroDocumento}}
+        Nota - {{nf.numeroDocumento}} - {{nf.getTotais()}}
         <div style="margin-left: 5px;" *ngFor="let parcela of nf.parcelas">
             Parcelas - R$: {{parcela.valor}} - {{parcela.dataVencimento | date: 'dd/MM/yyyy'}} 
         </div>

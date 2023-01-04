@@ -13,8 +13,8 @@ export class FiliaisService {
     return this.http.get<String>(url);
   }
 
-  getByCnpj(cnpj : String): Observable<number> {
+  getByCnpj(cnpj : String): Observable<any> {
     let url = this.host + '/b1s/v1/BusinessPlaces?$filter=FederalTaxID eq '+"'"+cnpj+"'"
-    return this.http.get<any>(url).pipe(map(it => it.value[0].BPLID));
+    return this.http.get<any>(url).pipe(map(it => it.value[0]));
   }
 }

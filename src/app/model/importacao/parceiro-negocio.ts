@@ -22,4 +22,8 @@ export class ParceiroNegocio{
         else
             filtro[0].addParcela(valor,dataVecimento)
     }
+
+    getTotais() : number {
+        return this.documentosFiscais.map(it => it.getTotais()).reduce((sum, current) => sum + current, 0)
+    }
 }
