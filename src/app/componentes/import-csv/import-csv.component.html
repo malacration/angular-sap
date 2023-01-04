@@ -9,7 +9,7 @@
 <button (click)="limpar()">Limpar</button>
 <hr>
 <h2>Dados Para importação</h2>
-<h3>Total: {{totalDados()}}</h3>
+<h3>Total: {{totalDados() | currency}}</h3>
 
 <button (click)="validarParceiro()">Validar Fornecedor</button>
 <button (click)="validarCliente()">Validar Cliente</button>
