@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PurchaseInvoice } from 'src/app/model/sap/purchase-Invoice';
 import { BusinessPartnersService } from 'src/app/service/business-partners.service';
+import { DocumentService } from 'src/app/service/document-service';
 import { FiliaisService } from 'src/app/service/filiais.service';
 
 @Component({
@@ -8,7 +10,9 @@ import { FiliaisService } from 'src/app/service/filiais.service';
   styleUrls: ['./filiais.component.css'],
 })
 export class FiliaisComponent implements OnInit {
-  constructor(private filiaisService: FiliaisService, private businesPartnersService : BusinessPartnersService) {}
+  constructor(private filiaisService: FiliaisService, 
+    private businesPartnersService : BusinessPartnersService,
+    private documentService : DocumentService) {}
 
   ngOnInit() {}
 
@@ -34,6 +38,12 @@ export class FiliaisComponent implements OnInit {
 
   parceiro() {
     this.businesPartnersService.getFornecedorByCpfCnpj(this.cnpj).subscribe((it) => {
+      console.log(it);
+    });
+  }
+
+  getInvoice() {
+    this.documentService.getNotaFiscalEntrada(this.cnpj).subscribe((it) => {
       console.log(it);
     });
   }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { ConfigService } from './config-service';
 
 @Injectable()
@@ -48,7 +48,7 @@ export class BusinessPartnersService {
         }
       ]
     }
-    return this.http.patch(url,body);
+    return this.http.patch(url,body).pipe(catchError(err => of([])));
   }
 
   

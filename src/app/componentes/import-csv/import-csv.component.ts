@@ -98,65 +98,80 @@ export class ImportCsvComponent implements OnInit {
     }
   }
 
-  cadastrarNfentrada(){
+  cadastrarAllNfEntrada(){
     this.dados.filter(it => it.codSap != "?").forEach(it => {
       try{
-        this.cadastrarNf(it)
+        this.cadastrarNfEntrada(it)
       }catch(error){
         it.error = error;
       }
     })    
   }
 
-  cadastrarNf(it : ParceiroNegocio){
+  cadastrarNfEntrada(it : ParceiroNegocio){
     this.importaoToSaoService.parse(it).subscribe(resul => {
       resul.forEach(nf => {
-        this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
-          nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
-          nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
-          this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(updateBp => {
-            this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
-              it.error = "Nota cadastrada com sucesso"
-            },
-            (err) => {
-              if(err && !err.error.error.message.value.includes('já existe'))
-                it.error = err.error.error.message.value
-              else
-                it.error = "Notas já cadastrada"
+        try{
+          this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+            nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
+            nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
+            this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
+              () => {
+                this.documentoService.cadastrarNotaFiscalEntrada(nf).subscribe(it =>{
+                  it.error = "Nota cadastrada com sucesso"
+                },
+                (err) => {
+                  if(err && !err.error.error.message.value.includes('já existe'))
+                    it.error = err.error.error.message.value
+                  else if(!it.error)
+                    it.error = "Notas já cadastrada"
+                })
             })
           })
-        })
+        }catch(e){
+          console.log(e)
+        }
+        
       })
     })
   }
 
-  cadastrarNfSaida(){
+  cadastrarAllNfSaida(){
     this.dados.filter(it => it.codSap != "?").forEach(it => {
       try{
-        this.importaoToSaoService.parseCliente(it).subscribe(resul => {
-          resul.forEach(nf => {
-            this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
-              nf.BPL_IDAssignedToInvoice = filialCod;
-              this.bussinesPartners.updateFiliais(nf.CardCode,filialCod).subscribe(updateBp => {
-                this.documentoService.cadastrarNotaFiscalSaida(nf).subscribe(it =>{
-                  it.error = "Nota cadastrada com sucesso"
-                },
-                (error) => {
-                  console.log("error 2 ->",error.error)
-                  // if(error && error.error.error.message.value != '(1) Documento nota fiscal já existe')
-                  //   it.error = error
-                  // else{
-                  //   it.error = "Notas já cadastrada"
-                  // }
-                })
-              })
-            })
-          })
-        })
+        this.cadastrarNfSaida(it)
       }catch(error){
         it.error = error;
       }
     })    
+  }
+
+  cadastrarNfSaida(it : ParceiroNegocio){
+    this.importaoToSaoService.parseCliente(it).subscribe(resul => {
+      resul.forEach(nf => {
+        try{
+          this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+            nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
+            nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
+            this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
+              () => {
+                this.documentoService.cadastrarNotaFiscalSaida(nf).subscribe(it =>{
+                  it.error = "Nota cadastrada com sucesso"
+                },
+                (err) => {
+                  if(err && !err.error.error.message.value.includes('já existe'))
+                    it.error = err.error.error.message.value
+                  else if(!it.error)
+                    it.error = "Notas já cadastrada"
+                })
+            })
+          })
+        }catch(e){
+          console.log(e)
+        }
+        
+      })
+    })
   }
 
   showErro(pn){
