@@ -3,7 +3,11 @@ import { DocumentLine } from './document-line';
 
 export class PurchaseInvoice extends Document {
   
-  constructor(cardCode: String, documentLines: Array<DocumentLine>, numeroNf : number, cnpjFilial : String) {
+  constructor(
+    cardCode: String, documentLines: Array<DocumentLine>, numeroNf : number, 
+    cnpjFilial : String, 
+    sequenceCode : number = -2) {
+      
     super();
     this.CardCode = cardCode;
     this.DocumentLines = documentLines;
@@ -13,5 +17,6 @@ export class PurchaseInvoice extends Document {
     this.JournalMemo = "MIGRAÇÃO - NF "+numeroNf
     this.SequenceSerial = numeroNf
     this.cnpjFilial = cnpjFilial
+    this.SequenceCode = sequenceCode
   }
 }

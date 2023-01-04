@@ -18,9 +18,9 @@ export class ImportacaoToSap{
     }
 
     parseCliente(parceiro : ParceiroNegocio) : Observable<Array<PurchaseInvoice>> {
-        return this.businessPartners.getFornecedorByCpfCnpj(parceiro.cpfCnpj)
+        return this.businessPartners.getClienteByCpfCnpj(parceiro.cpfCnpj)
         .pipe(map(cardCode => 
-            parceiro.documentosFiscais.map(it => it.getPurchaseInvoice(cardCode))
+            parceiro.documentosFiscais.map(it => it.getInvoice(cardCode))
         ))
     }
 }

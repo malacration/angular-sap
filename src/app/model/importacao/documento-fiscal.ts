@@ -31,6 +31,12 @@ export class DocumentoFiscal{
         return document
     }
 
+    getInvoice(cardCode : String) : PurchaseInvoice{
+        let invoice = this.getPurchaseInvoice(cardCode);
+        invoice.SequenceCode -2;
+        return invoice;
+    }
+
     getTotais() : number {
         return this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current, 0)
     }

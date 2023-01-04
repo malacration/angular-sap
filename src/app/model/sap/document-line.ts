@@ -21,9 +21,3 @@ export class DocumentLine {
     this.LineTotal = qtd * unitPrice;
   }
 }
-
-//               "AccountCode" : "1.1.3.004.00001",]
-//               "TaxCode" : "2101-009",
-// "TaxType" : "tt_Yes",
-// "TaxLiable" : "tYES",
-//
