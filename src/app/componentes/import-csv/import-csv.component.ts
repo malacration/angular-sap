@@ -65,21 +65,22 @@ export class ImportCsvComponent implements OnInit {
       //   cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"999.999.999-99")
       // else
       cpfCnpj = row[cpfParceiro]
-
-      let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
-      if(dadosFiltrado.length == 1){
-        dadosFiltrado[0].addDocumento(new Number(row[numDocumentoFiscal]).valueOf(),
-          row[cnfpjFilial],
-          new Number(row[valor]).valueOf(),
-          moment(row[dataVencimento],"YYYY-MM-DD").toDate())
-      }
-      else{
-        this.dados.push(new ParceiroNegocio(
-          cpfCnpj,
-          new Number(row[numDocumentoFiscal]).valueOf(),
-          row[cnfpjFilial],
-          new Number(row[valor]).valueOf(),
-          moment(row[dataVencimento],"YYYY-MM-DD").toDate()))
+      if(cpfCnpj){
+        let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
+        if(dadosFiltrado.length == 1){
+          dadosFiltrado[0].addDocumento(new Number(row[numDocumentoFiscal]).valueOf(),
+            row[cnfpjFilial],
+            new Number(row[valor]).valueOf(),
+            moment(row[dataVencimento],"YYYY-MM-DD").toDate())
+        }
+        else{
+          this.dados.push(new ParceiroNegocio(
+            cpfCnpj,
+            new Number(row[numDocumentoFiscal]).valueOf(),
+            row[cnfpjFilial],
+            new Number(row[valor]).valueOf(),
+            moment(row[dataVencimento],"YYYY-MM-DD").toDate()))
+        }
       }
     }
   }
@@ -175,6 +176,7 @@ export class ImportCsvComponent implements OnInit {
   }
 
   totalDados(){
+    console.log("fiscais",this.dados.flatMap(it => it.documentosFiscais).map(doc => doc.getTotais()))
     return this.dados
       .flatMap(it => it.documentosFiscais)
       .map(doc => doc.getTotais())

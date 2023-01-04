@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -42,6 +42,10 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     BusinessPartnersService,
     ImportacaoToSap,
     MaskApplierService,
+    {
+      provide:  DEFAULT_CURRENCY_CODE,
+      useValue: 'BRL'
+    },
     {
       provide: ConfigService,
       useFactory: (it) => {
