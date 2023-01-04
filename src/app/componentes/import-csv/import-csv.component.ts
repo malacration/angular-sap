@@ -57,7 +57,7 @@ export class ImportCsvComponent implements OnInit {
     this.dados = new Array()
 
     for (let index = 1; index < this.csvToRowArray.length; index++) {
-      let row = this.csvToRowArray[index].split(",");
+      let row = this.csvToRowArray[index].split(";");
       let cpfCnpj = ""
       if(row[cpfParceiro].length == 14 && row[cpfParceiro].split('.').length ==1)
         cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"99.999.999/9999-99")
