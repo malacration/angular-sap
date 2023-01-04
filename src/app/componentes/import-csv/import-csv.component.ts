@@ -174,6 +174,13 @@ export class ImportCsvComponent implements OnInit {
     })
   }
 
+  totalDados(){
+    return this.dados
+      .flatMap(it => it.documentosFiscais)
+      .map(doc => doc.getTotais())
+      .reduce((sum, current) => sum + current, 0)
+  }
+
   showErro(pn){
       console.log(pn.error)
   }
