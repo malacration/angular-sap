@@ -33,7 +33,7 @@ export class DocumentoFiscal{
 
     getInvoice(cardCode : String) : PurchaseInvoice{
         let invoice = this.getPurchaseInvoice(cardCode);
-        invoice.SequenceCode -2;
+        invoice.SequenceCode -1;
         return invoice;
     }
 
