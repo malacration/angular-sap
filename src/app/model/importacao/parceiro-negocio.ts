@@ -24,6 +24,6 @@ export class ParceiroNegocio{
     }
 
     getTotais() : number {
-        return this.documentosFiscais.map(it => it.getTotais()).reduce((sum, current) => sum + current, 0)
+        return this.documentosFiscais.map(it => it.getTotais()).reduce((sum, current) => sum + current*100, 0)/100
     }
 }

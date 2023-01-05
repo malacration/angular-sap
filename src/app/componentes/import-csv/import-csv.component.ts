@@ -48,12 +48,16 @@ export class ImportCsvComponent implements OnInit {
     this.dados = this.dados.filter(it => it.codSap == "?")
   }
 
+  removerNfs(){
+    this.dados = this.dados.filter(it => it.error != "Nota cadastrada com sucesso")
+  }
+
   carregarCsv(){
     let cpfParceiro = 2;
     let numDocumentoFiscal = 3;
     let cnfpjFilial = 0;
     let valor = 1;
-    let dataVencimento = 4;
+    let dataVencimento = 5;
     this.dados = new Array()
 
     for (let index = 1; index < this.csvToRowArray.length; index++) {
@@ -122,10 +126,11 @@ export class ImportCsvComponent implements OnInit {
                   it.error = "Nota cadastrada com sucesso"
                 },
                 (err) => {
-                  if(err && !err.error.error.message.value.includes('já existe'))
+                  if(err && (!err.error.error.message.value.includes('já existe') 
+                      || !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
                     it.error = err.error.error.message.value
                   else if(!it.error)
-                    it.error = "Notas já cadastrada"
+                    it.error = "Nota cadastrada com sucesso"
                 })
             })
           })
@@ -160,10 +165,11 @@ export class ImportCsvComponent implements OnInit {
                   it.error = "Nota cadastrada com sucesso"
                 },
                 (err) => {
-                  if(err && !err.error.error.message.value.includes('já existe'))
+                  if(err && (!err.error.error.message.value.includes('já existe') 
+                      || !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
                     it.error = err.error.error.message.value
                   else if(!it.error)
-                    it.error = "Notas já cadastrada"
+                    it.error = "Nota cadastrada com sucesso"
                 })
             })
           })
@@ -179,7 +185,7 @@ export class ImportCsvComponent implements OnInit {
     return this.dados
       .flatMap(it => it.documentosFiscais)
       .map(doc => doc.getTotais())
-      .reduce((sum, current) => sum + current, 0)
+      .reduce((sum, current) => sum + current*100, 0)/100
   }
 
   showErro(pn){

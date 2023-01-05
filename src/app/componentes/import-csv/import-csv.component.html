@@ -6,7 +6,8 @@
 <h1>Import Csv</h1>
 <input type="file" (change)="onFileSelect($event.target)" />
 <button (click)="carregarCsv()">Enviar</button>
-<button (click)="limpar()">Limpar</button>
+<button (click)="limpar()">Ver PN Inconsistentes</button>
+<button (click)="limpar()">Remover Nfs cadastradas</button>
 <hr>
 <h2>Dados Para importação</h2>
 <h3>Total: {{totalDados() | currency }}</h3>

@@ -10,7 +10,7 @@ export class Document {
   DocDate = "2022-12-31"
   Usage = 15
   JournalMemo = "Migração de Saldo Inicial"
-  SequenceCode = -2
+  SequenceCode = -1
   SequenceSerial : number
   cnpjFilial : String;
 }

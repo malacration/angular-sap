@@ -24,7 +24,7 @@ export class DocumentoFiscal{
 
     getPurchaseInvoice(cardCode : String) : PurchaseInvoice{
         let docLines = new Array()
-        let total = this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current, 0)
+        let total = this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current*100, 0)/100
         docLines.push(new DocumentLine(COD_ITEM,1,COD_IMPOSTO,total))
         let document = new PurchaseInvoice(cardCode,docLines,this.numeroDocumento,this.cnpjFilial)
         document.DocumentInstallments = this.parcelas.map(it => it.get())
@@ -38,7 +38,7 @@ export class DocumentoFiscal{
     }
 
     getTotais() : number {
-        return this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current, 0)
+        return this.parcelas.map(it => it.valor).reduce((sum, current) => sum + current*100, 0)/100
     }
     
 }

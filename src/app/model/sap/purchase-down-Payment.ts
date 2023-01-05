@@ -8,7 +8,7 @@ export class PurchaseDownPayment extends Document {
     this.DocumentLines = documentLines;
     this.DocTotal = documentLines
       .map((it) => it.LineTotal)
-      .reduce((sum, current) => sum + current, 0);
+      .reduce((sum, current) => sum + current*100, 0)/100;
     this.BPL_IDAssignedToInvoice = 2
   }
   DownPaymentType: String = 'dptInvoice';
