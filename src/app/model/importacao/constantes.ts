@@ -10,5 +10,6 @@
 //406.001
 //404.001
 //403.001
+//01.001
 export const COD_IMPOSTO = "zero"
 export const COD_ITEM = "USO0000528"

@@ -127,7 +127,7 @@ export class ImportCsvComponent implements OnInit {
                 },
                 (err) => {
                   if(err && (!err.error.error.message.value.includes('já existe') 
-                      || !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
+                      && !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
                     it.error = err.error.error.message.value
                   else if(!it.error)
                     it.error = "Nota cadastrada com sucesso"
@@ -166,7 +166,7 @@ export class ImportCsvComponent implements OnInit {
                 },
                 (err) => {
                   if(err && (!err.error.error.message.value.includes('já existe') 
-                      || !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
+                      && !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
                     it.error = err.error.error.message.value
                   else if(!it.error)
                     it.error = "Nota cadastrada com sucesso"

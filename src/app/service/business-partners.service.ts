@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { ConfigService } from './config-service';
 
 @Injectable()
@@ -24,14 +24,35 @@ export class BusinessPartnersService {
   }
 
   getCardCodeByCnpjAndSeries(cpfCnpj : String, series : String): Observable<String> {
+    let isCpf = false;
+
+    if(cpfCnpj.length == 14)
+      isCpf =true
+    else if(cpfCnpj.length == 18)
+      isCpf = false
+    else
+      return throwError(() => "Utilizar cpf com mascara")
+
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'
     let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,Series),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0)'
     let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode '
-    let filter1 = ' and (BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
-    let filter2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj+'\''
-    let semPontos = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\''
-    let semPonto2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\') and BusinessPartners/Series eq '+series+' '
-    let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+filter1+filter2+semPontos+semPonto2
+    
+    let cnpj = ' (BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
+    let cnpj2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\')'
+
+    let cpf = ' (BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj+'\''
+    let cpf2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\')'
+    
+    let final = ' BusinessPartners/Series eq '+series+' '
+    let mf
+    if(isCpf)
+      mf=cpf+cpf2
+    else
+      mf=cnpj+cnpj2
+    
+      // mf = ' ('+cpf+cpf2+' or '+cnpj+cnpj2+') '
+
+    let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+' and '+mf+' and '+final
     return this.http.get<any>(url).pipe(map(n => n.value[0].BusinessPartners.CardCode));
   }
 
