@@ -28,7 +28,7 @@ export class ImportCsvComponent implements OnInit {
   progression = 0
   page = 1
   itemsPerPage = 2
-  dados : Array<ParceiroNegocio> = new Array(new ParceiroNegocio("CPF/CNPJ Parcerio",0,"cnpj",0,new Date()))
+  dados : Array<ParceiroNegocio> = new Array(new ParceiroNegocio("CPF/CNPJ Parcerio",0,"cnpj",0,new Date(),""))
   csvToRowArray : string[]
 
   public get currentPage() : Array<ParceiroNegocio>  {
@@ -93,7 +93,7 @@ export class ImportCsvComponent implements OnInit {
       let nossoNumero = ''
       if(row[nossoNumero])
         nossoNumero = row[nossoNumero]
-        
+
       if(cpfCnpj){
         let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
         if(dadosFiltrado.length == 1){
