@@ -1,6 +1,17 @@
-<p>Start editing to see some magic happen :) {{ name }}</p>
-<hr />
-<app-login></app-login>
-<hr />
-<app-filiais></app-filiais>
-<app-import-csv></app-import-csv>
+<ngb-accordion activeIds="ngb-panel-0">
+    <ngb-panel title="Login">
+		<ng-template ngbPanelContent>
+			<app-login></app-login>
+		</ng-template>
+	</ngb-panel>
+	<ngb-panel title="Debug">
+		<ng-template ngbPanelContent>
+			<app-debug></app-debug>
+		</ng-template>
+	</ngb-panel>
+    <ngb-panel title="Import">
+		<ng-template ngbPanelContent>
+			<app-import-csv></app-import-csv>
+		</ng-template>
+	</ngb-panel>
+</ngb-accordion>

@@ -1,28 +1,45 @@
 <div *ngIf="!isLogado">
   <form>
-    <div>
-      <label for="CompanyDB">CompanyDB:</label>
-      <input
-        [(ngModel)]="login.CompanyDB"
-        name="CompanyDB"
-        type="text"
-        value="SBOHOMOLOG2612"
-      />
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="serviceLayer" class="form-label">Service Layer:</label>
+        <input class="form-control"
+          id="serviceLayer"
+          [(ngModel)]="login.serviceLayer"
+          name="serviceLayer"
+          type="text"
+          value="https://sapharovema:50000"
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="CompanyDB" class="form-label">CompanyDB:</label>
+        <input class="form-control"
+          id="CompanyDB"
+          [(ngModel)]="login.CompanyDB"
+          name="CompanyDB"
+          type="text"
+          value="SBOHOMOLOG2612"
+        />
+      </div>
     </div>
-    <div>
-      <label for="UserName">UserName:</label>
-      <input
-        [(ngModel)]="login.UserName"
-        name="UserName"
-        type="text"
-        value="ROVEMA"
-      />
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="UserName" class="form-label">User Name:</label>
+        <input class="form-control"
+          [(ngModel)]="login.UserName"
+          name="UserName"
+          type="text"
+          value="ROVEMA"
+        />
+      </div>
+      <div class="col-md-6">
+        <label for="Password" class="form-label">Password:</label>
+        <input [(ngModel)]="login.Password" name="Password" class="form-control" type="password" />
+      </div>
     </div>
-    <div>
-      <label for="Password">Password:</label>
-      <input [(ngModel)]="login.Password" name="Password" type="text" />
+    <div class="col-12">
+      <button (click)="sigin()" class="btn btn-primary mb-2">Sign in</button>
     </div>
-    <button (click)="sigin()">Sign in</button>
   </form>
 </div>
-<div *ngIf="isLogado">Sign on <button (click)="logout()">Sign out</button></div>
+<div *ngIf="isLogado">Sign on <button (click)="logout()" class="btn btn-primary mb-2">Sign out</button></div>

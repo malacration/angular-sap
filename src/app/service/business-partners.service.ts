@@ -6,7 +6,7 @@ import { ConfigService } from './config-service';
 @Injectable()
 export class BusinessPartnersService {
   constructor(private config: ConfigService, private http: HttpClient) {}
-  host = this.config.getHost();
+  host = this.config.host;
 
   get(id : String): Observable<String> {
     let url = this.host + '/b1s/v1/BusinessPartners?$filter=CardCode eq '+"'"+id+"'"

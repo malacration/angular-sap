@@ -1,3 +1,4 @@
+
 import { DEFAULT_CURRENCY_CODE, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -9,12 +10,12 @@ import { LoginComponent } from './componentes/login/login.component';
 import { LoginService } from './service/login-service';
 import { CommonModule } from '@angular/common';
 import { DocumentService } from './service/document-service';
-import { FiliaisComponent } from './componentes/filiais/filiais.component';
+import { DeBugComponent } from './componentes/debug/debug.component';
 import { FiliaisService } from './service/filiais.service';
 import { BusinessPartnersService } from './service/business-partners.service';
 import { ImportCsvComponent } from './componentes/import-csv/import-csv.component';
 import { ImportacaoToSap } from './service/importao-to-sap.service';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbCollapseModule, NgbPaginationModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { IConfig, MaskApplierService, NgxMaskModule } from 'ngx-mask'
 
@@ -26,12 +27,15 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     HttpClientModule,
     CommonModule,
     NgbCollapseModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    NgbPaginationModule,
+    NgbAccordionModule,
+    NgbProgressbarModule
   ],
   declarations: [
     AppComponent,
     LoginComponent,
-    FiliaisComponent,
+    DeBugComponent,
     ImportCsvComponent,
   ],
   bootstrap: [AppComponent],

@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Buffer } from 'buffer';
 import * as moment from 'moment';
 import { MaskApplierService } from 'ngx-mask';
+import { concatAll, delay, from, fromEvent, Observable, of, pipe, share, Subscribable, switchMap, switchMapTo } from 'rxjs';
 import { ParceiroNegocio } from 'src/app/model/importacao/parceiro-negocio';
 import { BusinessPartnersService } from 'src/app/service/business-partners.service';
 import { FiliaisService } from 'src/app/service/filiais.service';
 import { ImportacaoToSap } from 'src/app/service/importao-to-sap.service';
 import { DocumentService } from '../../service/document-service'
+
 
 
 @Component({
@@ -22,11 +24,25 @@ export class ImportCsvComponent implements OnInit {
     private filialService : FiliaisService,
     private documentoService : DocumentService
     ) {}
-  dados : Array<ParceiroNegocio> = new Array()
+  
+  progression = 0
+  page = 1
+  itemsPerPage = 2
+  dados : Array<ParceiroNegocio> = new Array(new ParceiroNegocio("CPF/CNPJ Parcerio",0,"cnpj",0,new Date()))
   csvToRowArray : string[]
 
-  ngOnInit() {
+  public get currentPage() : Array<ParceiroNegocio>  {
+    return this.loadPage(this.page)
   }
+
+  ngOnInit() {
+    
+  }
+
+  loadPage(page){
+    return this.dados.slice((this.page-1)*this.itemsPerPage,this.page*this.itemsPerPage)
+  }
+
 
   validarParceiro(){
     this.dados.filter(it => it && it.cpfCnpj).forEach(it =>{
@@ -117,7 +133,8 @@ export class ImportCsvComponent implements OnInit {
   }
 
   cadastrarNfEntrada(it : ParceiroNegocio){
-    this.importaoToSaoService.parse(it).subscribe(resul => {
+    this.importaoToSaoService.parse(it)
+    .subscribe(resul => {
       resul.forEach(nf => {
         try{
           this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
@@ -196,9 +213,28 @@ export class ImportCsvComponent implements OnInit {
   }
 
   verificaTotal(pn : ParceiroNegocio){
-    this.importaoToSaoService.parseCliente(pn).subscribe(it => {
-      console.log(it)
-    })
+    this.executObservables([this.importaoToSaoService.parseCliente(pn)],it => {console.log(it)})
+  }
+
+  requestUm = of('first').pipe(delay(500));
+  requestDois = of('first').pipe(delay(500));
+  requestTrez = of('first').pipe(delay(500));
+  requestQuatro = of('first').pipe(delay(500));
+
+  test(){
+    this.executObservables([this.requestUm,this.requestDois,this.requestTrez,this.requestQuatro],it => {console.log(it)})
+  }
+
+  executObservables(observables : Array<Observable<any>>,
+    funcao : { apply: (expectation: any) => void;} ){
+    let completo = 0;
+    let requests = from(observables).pipe(concatAll());
+    requests.subscribe(it => {
+      if(funcao != null)
+        funcao.apply(it)
+      completo++
+      this.progression = (completo/observables.length)*100
+    });
   }
 
 }

@@ -8,7 +8,7 @@ import { ConfigService } from './config-service';
 @Injectable()
 export class DocumentService {
   constructor(private http: HttpClient, private config: ConfigService) {}
-  host = this.config.getHost();
+  host = this.config.host;
 
   adiantamentoFornecedor(document: PurchaseDownPayment): Observable<any> {
     let url = this.host + '/b1s/v1/PurchaseDownPayments';

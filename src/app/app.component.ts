@@ -8,5 +8,4 @@ import { Component, VERSION } from '@angular/core';
 })
 export class AppComponent {
   constructor(private http: HttpClient) {}
-  name = 'Angular ' + VERSION.major;
 }

@@ -9,9 +9,10 @@ import { ConfigService } from './config-service';
 export class LoginService {
   constructor(private http: HttpClient, private config: ConfigService) {}
 
-  url = this.config.getHost() + '/b1s/v1/Login';
+  url = this.config.host + '/b1s/v1/Login';
 
   login(login: Login): Observable<Session> {
+    this.config.host = login.serviceLayer
     return this.http.post<Session>(this.url, login);
   }
 }

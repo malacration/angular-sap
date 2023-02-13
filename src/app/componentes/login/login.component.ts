@@ -5,7 +5,7 @@ import { LoginService } from '../../service/login-service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService) {}
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
       this.sigin();
     }
     if (!this.login.CompanyDB) this.login.CompanyDB = 'SBOHOMOLOG2612';
-    if (!this.login.UserName) this.login.UserName = 'RROVEMA';
+    if (!this.login.UserName) this.login.UserName = 'ROVEMA';
+    if (!this.login.serviceLayer) this.login.serviceLayer = 'https://sapharovema:50000';
   }
 
   sigin() {
