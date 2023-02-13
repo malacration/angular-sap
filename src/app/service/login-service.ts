@@ -13,6 +13,7 @@ export class LoginService {
 
   login(login: Login): Observable<Session> {
     this.config.host = login.serviceLayer
+    this.url = this.config.host + '/b1s/v1/Login'
     return this.http.post<Session>(this.url, login);
   }
 }

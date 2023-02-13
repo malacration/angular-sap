@@ -74,6 +74,7 @@ export class ImportCsvComponent implements OnInit {
     let cnfpjFilial = 0;
     let valor = 1;
     let dataVencimento = 5;
+    let nossoNumero = 6;
     this.dados = new Array()
 
     for (let index = 1; index < this.csvToRowArray.length; index++) {
@@ -87,14 +88,19 @@ export class ImportCsvComponent implements OnInit {
         cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"999.999.999-99")
       }
       else
-      cpfCnpj = row[cpfParceiro]
+        cpfCnpj = row[cpfParceiro]
+      
+      let nossoNumero = ''
+      if(row[nossoNumero])
+        nossoNumero = row[nossoNumero]
+        
       if(cpfCnpj){
         let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
         if(dadosFiltrado.length == 1){
           dadosFiltrado[0].addDocumento(new Number(row[numDocumentoFiscal]).valueOf(),
             row[cnfpjFilial],
             new Number(row[valor]).valueOf(),
-            moment(row[dataVencimento],"YYYY-MM-DD").toDate())
+            moment(row[dataVencimento],"YYYY-MM-DD").toDate(),nossoNumero)
         }
         else{
           this.dados.push(new ParceiroNegocio(
@@ -102,7 +108,7 @@ export class ImportCsvComponent implements OnInit {
             new Number(row[numDocumentoFiscal]).valueOf(),
             row[cnfpjFilial],
             new Number(row[valor]).valueOf(),
-            moment(row[dataVencimento],"YYYY-MM-DD").toDate()))
+            moment(row[dataVencimento],"YYYY-MM-DD").toDate(),nossoNumero))
         }
       }
     }

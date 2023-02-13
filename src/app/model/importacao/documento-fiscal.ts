@@ -11,14 +11,14 @@ export class DocumentoFiscal{
     cnpjFilial : String
     parcelas : Array<Parcela> = new Array()
     
-    constructor(numero : number, cnpjFilial : String, valor : number, dataVecimento : Date){
+    constructor(numero : number, cnpjFilial : String, valor : number, dataVecimento : Date, nossoNumero : String){
         this.numeroDocumento = numero
         this.cnpjFilial = cnpjFilial
-        this.addParcela(valor, dataVecimento)
+        this.addParcela(valor, dataVecimento,nossoNumero)
     }
 
-    addParcela(valor : number, dataVecimento : Date){
-        let parcela = new Parcela(valor,dataVecimento)
+    addParcela(valor : number, dataVecimento : Date, nossoNumero : String){
+        let parcela = new Parcela(valor,dataVecimento,nossoNumero)
         this.parcelas.push(parcela)
     }
 
