@@ -27,7 +27,7 @@ export class ImportCsvComponent implements OnInit {
   
   progression = 0
   page = 1
-  itemsPerPage = 2
+  itemsPerPage = 30
   dados : Array<ParceiroNegocio> = new Array(new ParceiroNegocio("CPF/CNPJ Parcerio",0,"cnpj",0,new Date(),""))
   csvToRowArray : string[]
 
