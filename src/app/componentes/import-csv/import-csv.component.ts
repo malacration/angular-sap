@@ -243,4 +243,8 @@ export class ImportCsvComponent implements OnInit {
     });
   }
 
+  log(it){
+    console.log(it)
+  }
+
 }

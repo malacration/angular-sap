@@ -11,12 +11,18 @@
 <button (click)="validarCliente()">Validar Cliente</button>
 <div class="center">
     <div class="card text-center" *ngFor="let pn of currentPage">
-        <div class="card-header">
-            {{pn.cpfCnpj}} - {{pn.codSap}} - total : {{pn.getTotais() | currency}} 
-            <span *ngIf="pn.error" (click)="showErro(pn)">{{pn.error}}</span>
-            <button (click)="cadastrarNfEntrada(pn)"> Lançar NFs - Entrada </button> 
-            <button (click)="cadastrarNfSaida(pn)"> Lançar NFs - Saida </button> 
-            <button (click)="pn.isCollapsed = ! pn.isCollapsed">Colapsar</button>
+        <div class="card-header container-fluid">
+            <div class="row">
+                <div class="col-md-7 btn" (click)="pn.isCollapsed = ! pn.isCollapsed">
+                  <h6 class="w-75 p-3">{{pn.cpfCnpj}} - {{pn.codSap}} - total : {{pn.getTotais() | currency}}</h6>
+                </div>
+                <div class="col-md-4 float-right justify-content-center align-items-center text-center align-items-center">
+                    <button class="btn btn-primary ms-1" (click)="cadastrarNfEntrada(pn)"> NF Entrada </button> 
+                    <button class="btn btn-primary ms-1" (click)="cadastrarNfSaida(pn)"> NF Saida </button> 
+                    <button type="button" class="btn btn-info ms-1" (click)="log(pn)">Log</button>
+                 </div>
+              </div>     
+            <span *ngIf="pn.error" (click)="showErro(pn)">{{pn.error}}</span>            
         </div>
         <div style="margin: 5px;" class="card-body" *ngFor="let nf of pn.documentosFiscais" #collapse="ngbCollapse" [(ngbCollapse)]="pn.isCollapsed">
             Nota - {{nf.numeroDocumento}} - {{nf.getTotais() | currency}}
@@ -27,7 +33,7 @@
     </div>
     <ngb-pagination (pageChange)="loadPage(page)" [collectionSize]="dados.length" [pageSize]="itemsPerPage" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
 </div>
-<!-- <p><ngb-progressbar type="success" [value]="progression"></ngb-progressbar></p> -->
+<p><ngb-progressbar type="success" [value]="progression"></ngb-progressbar></p>
 <div class="row g-3">
     <div class="col-md-6">
         <button (click)="cadastrarAllNfEntrada()">Importar Notas fiscais de Entrada</button>
