@@ -112,7 +112,7 @@ export class ImportCsvComponent implements OnInit {
           this.dados.push(new ParceiroNegocio(
             cpfCnpj,
             new Number(row[numDocumentoFiscal]).valueOf(),
-            row[cnfpjFilial],
+            filial,
             new Number(row[valor]).valueOf(),
             moment(row[dataVencimento],"YYYY-MM-DD").toDate(),nossoNumero))
         }
