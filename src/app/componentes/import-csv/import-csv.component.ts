@@ -76,6 +76,7 @@ export class ImportCsvComponent implements OnInit {
     let dataVencimento = 5;
     let nossoNumero = 6;
     this.dados = new Array()
+    let filial = '';
 
     for (let index = 1; index < this.csvToRowArray.length; index++) {
       let row = this.csvToRowArray[index].split(";");
@@ -89,6 +90,11 @@ export class ImportCsvComponent implements OnInit {
       }
       else
         cpfCnpj = row[cpfParceiro]
+
+      if(row[cnfpjFilial].length == 14 && row[cnfpjFilial].split('.').length ==1)
+        filial = this.maskService.applyMask(row[cnfpjFilial],"99.999.999/9999-99")
+      else
+        filial = row[cnfpjFilial]
       
       let nossoNumero = ''
       if(row[nossoNumero])
@@ -98,7 +104,7 @@ export class ImportCsvComponent implements OnInit {
         let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
         if(dadosFiltrado.length == 1){
           dadosFiltrado[0].addDocumento(new Number(row[numDocumentoFiscal]).valueOf(),
-            row[cnfpjFilial],
+            filial,
             new Number(row[valor]).valueOf(),
             moment(row[dataVencimento],"YYYY-MM-DD").toDate(),nossoNumero)
         }
