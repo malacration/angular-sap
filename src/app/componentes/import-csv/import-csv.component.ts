@@ -145,11 +145,14 @@ export class ImportCsvComponent implements OnInit {
   }
 
   cadastrarNfEntrada(it : ParceiroNegocio){
+    let lista = Array<Observable<any>>()
+    let func 
     this.importaoToSaoService.parse(it)
     .subscribe(resul => {
       resul.forEach(nf => {
         try{
-          this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+          lista.push(this.filialService.getByCnpj(nf.cnpjFilial)) 
+          func = filialCod => {
             nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
             nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
             this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
@@ -165,13 +168,14 @@ export class ImportCsvComponent implements OnInit {
                     it.error = "Nota cadastrada com sucesso"
                 })
             })
-          })
+          }
         }catch(e){
           console.log("erro cadastra nf")
         }
         
       })
     })
+    this.executObservables(lista,func)
   }
 
   cadastrarAllNfSaida(){
