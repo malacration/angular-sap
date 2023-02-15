@@ -53,7 +53,9 @@ export class BusinessPartnersService {
       // mf = ' ('+cpf+cpf2+' or '+cnpj+cnpj2+') '
 
     let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+' and '+mf+' and '+final
-    return this.http.get<any>(url).pipe(map(n => n.value[0].BusinessPartners.CardCode));
+    return this.http.get<any>(url).pipe(map(
+        n => n.value.sort((a,b) => 
+        a.BusinessPartners.CardCode.localeCompare(b.BusinessPartners.CardCode)[0].BusinessPartners.CardCode)));
   }
 
   updateFiliais(cardCode : String, filialId : number){
