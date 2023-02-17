@@ -43,7 +43,7 @@ export class BusinessPartnersService {
     let cpf = ' (BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj+'\''
     let cpf2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\')'
     
-    let final = ' BusinessPartners/CardType eq '+cardType+' '
+    let final = ' BusinessPartners/CardType eq \''+cardType+'\' '
     let mf
     if(isCpf)
       mf=cpf+cpf2
