@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
     console.log("Login ",this.login);
     this.loginService.login(this.login).subscribe((it) => {
       localStorage.setItem('login', JSON.stringify(this.login));
-      // localStorage.setItem('sessionId', it.SessionId.toString());
+      localStorage.setItem('B1SESSION', it.SessionId.toString());
       this.isLogado = true;
+      this.setCookie("B1SESSION",it.SessionId,it.SessionTimeout)
     });
   }
 
@@ -37,4 +38,19 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('login');
     this.isLogado = false;
   }
+
+  /**
+     * set cookie
+     * @param {string} name
+     * @param {string} value
+     * @param {number} expireSeconds
+     * @param {string} path
+     */
+  public setCookie(name: string, value: string, expireSeconds: number, path: string = '') {
+    const d: Date = new Date();
+    d.setTime(d.getTime() + expireSeconds * 1000);
+    const expires = `expires=${d.toUTCString()}`;
+    const cpath = path ? `; path=${path}` : '';
+    document.cookie = `${name}=${value}; ${expires}${cpath}; SameSite=Lax`;
+}
 }

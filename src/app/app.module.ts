@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ConfigService } from './service/config-service';
 import { LoginComponent } from './componentes/login/login.component';
 import { LoginService } from './service/login-service';
@@ -18,6 +18,7 @@ import { ImportacaoToSap } from './service/importao-to-sap.service';
 import { NgbAccordionModule, NgbCollapseModule, NgbPaginationModule, NgbProgressbarModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { IConfig, MaskApplierService, NgxMaskModule } from 'ngx-mask'
+import { SessionInterceptor } from './session.Interceptor';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -40,6 +41,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
   ],
   bootstrap: [AppComponent],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SessionInterceptor, multi: true },
     LoginService,
     FiliaisService,
     DocumentService,

@@ -1,5 +1,5 @@
 export class Session {
-  SessionId: String;
-  Version: String;
-  SessionTimeout: 30;
+  SessionId: string;
+  Version: string;
+  SessionTimeout: number = 30;
 }

@@ -74,7 +74,7 @@ export class ImportCsvComponent implements OnInit {
     let cnfpjFilial = 0;
     let valor = 1;
     let dataVencimento = 5;
-    let nossoNumero = 6;
+    let nossoNumeroRow = 6;
     this.dados = new Array()
     let filial = '';
 
@@ -97,8 +97,8 @@ export class ImportCsvComponent implements OnInit {
         filial = row[cnfpjFilial]
       
       let nossoNumero = ''
-      if(row[nossoNumero])
-        nossoNumero = row[nossoNumero]
+      if(row[nossoNumeroRow])
+        nossoNumero = row[nossoNumeroRow]
 
       if(cpfCnpj){
         let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
