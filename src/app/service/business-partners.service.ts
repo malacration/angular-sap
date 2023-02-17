@@ -34,7 +34,7 @@ export class BusinessPartnersService {
       return throwError(() => "O valor informado não tem o tamanho adequado de um cpf ou cnpj (contando mascara)"+cpfCnpj)
 
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'
-    let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,CardType),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0,TaxId4)'
+    let expand = '?$expand=BusinessPartners($select=CardCode),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0,TaxId4)'
     let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode '
     
     let cnpj = ' (BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
@@ -55,7 +55,7 @@ export class BusinessPartnersService {
     let url = this.host + '/b1s/v1/'+crossJoin+expand+filter+' and '+mf+' and '+final
     return this.http.get<any>(url).pipe(map(
         n => n.value.sort((a,b) => 
-        a.BusinessPartners.CardCode.localeCompare(b.BusinessPartners.CardCode)[0].BusinessPartners.CardCode)));
+        a.BusinessPartners.CardCode.localeCompare(b.BusinessPartners.CardCode))[0].BusinessPartners.CardCode));
   }
 
   updateFiliais(cardCode : String, filialId : number){
