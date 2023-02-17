@@ -98,7 +98,7 @@ export class ImportCsvComponent implements OnInit {
       
       let nossoNumero = ''
       if(row[nossoNumeroRow])
-        nossoNumero = row[nossoNumeroRow]
+        nossoNumero = row[nossoNumeroRow].trim()
 
       if(cpfCnpj){
         let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
