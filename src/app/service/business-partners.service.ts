@@ -31,10 +31,10 @@ export class BusinessPartnersService {
     else if(cpfCnpj.length == 18)
       isCpf = false
     else
-      return throwError(() => "Utilizar cpf com mascara")
+      return throwError(() => "O valor informado não tem o tamanho adequado de um cpf ou cnpj (contando mascara)"+cpfCnpj)
 
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'
-    let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,Series),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0)'
+    let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,Series),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0,TaxId4)'
     let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode '
     
     let cnpj = ' (BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
