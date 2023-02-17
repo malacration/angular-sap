@@ -45,6 +45,10 @@ export class DeBugComponent implements OnInit {
       console.log(it);
       this.resultado = it.toString()
     });
+    this.businesPartnersService.getClienteByCpfCnpj(this.cnpj).subscribe((it) => {
+      console.log(it);
+      this.resultado = it.toString()
+    });
   }
 
   getInvoice() {
