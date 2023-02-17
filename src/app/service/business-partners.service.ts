@@ -16,14 +16,14 @@ export class BusinessPartnersService {
 
 
   getFornecedorByCpfCnpj(cpfCnpj : String): Observable<String> {
-    return this.getCardCodeByCnpjAndSeries(cpfCnpj,'78')
+    return this.getCardCodeByCnpjAndSeries(cpfCnpj,'S')
   }
 
   getClienteByCpfCnpj(cpfCnpj : String): Observable<String> {
-    return this.getCardCodeByCnpjAndSeries(cpfCnpj,'77')
+    return this.getCardCodeByCnpjAndSeries(cpfCnpj,'C')
   }
 
-  getCardCodeByCnpjAndSeries(cpfCnpj : String, series : String): Observable<String> {
+  getCardCodeByCnpjAndSeries(cpfCnpj : String, cardType : String): Observable<String> {
     let isCpf = false;
 
     if(cpfCnpj.length == 14)
@@ -34,7 +34,7 @@ export class BusinessPartnersService {
       return throwError(() => "O valor informado não tem o tamanho adequado de um cpf ou cnpj (contando mascara)"+cpfCnpj)
 
     let crossJoin = '$crossjoin(BusinessPartners,BusinessPartners/BPFiscalTaxIDCollection)'
-    let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,Series),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0,TaxId4)'
+    let expand = '?$expand=BusinessPartners($select=CardCode,GroupCode,CardType),BusinessPartners/BPFiscalTaxIDCollection($select=BPCode,TaxId0,TaxId4)'
     let filter = '&$filter=BusinessPartners/CardCode eq BusinessPartners/BPFiscalTaxIDCollection/BPCode '
     
     let cnpj = ' (BusinessPartners/BPFiscalTaxIDCollection/TaxId0 eq \''+cpfCnpj+'\''
@@ -43,7 +43,7 @@ export class BusinessPartnersService {
     let cpf = ' (BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj+'\''
     let cpf2 = ' or BusinessPartners/BPFiscalTaxIDCollection/TaxId4 eq \''+cpfCnpj.replace(/[^\d]/g,"")+'\')'
     
-    let final = ' BusinessPartners/Series eq '+series+' '
+    let final = ' BusinessPartners/CardType eq '+cardType+' '
     let mf
     if(isCpf)
       mf=cpf+cpf2
