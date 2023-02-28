@@ -22,12 +22,12 @@ export class PaymentService{
 
     contasReceber(payment : Payment){
         let url = this.host + '/b1s/v1/IncomePayments';
-        return this.http.post<String>(url, document);
+        return this.http.post<String>(url, payment);
     }
 
     contasPagar(payment : Payment){
         let url = this.host + '/b1s/v1/VendorPayments';
-        return this.http.post<String>(url, document);
+        return this.http.post<String>(url, payment);
     }
 
 }
