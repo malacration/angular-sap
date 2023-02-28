@@ -19,6 +19,7 @@ import { NgbAccordionModule, NgbCollapseModule, NgbPaginationModule, NgbProgress
 
 import { IConfig, MaskApplierService, NgxMaskModule } from 'ngx-mask'
 import { SessionInterceptor } from './session.Interceptor';
+import { PaymentService } from './service/payment.service';
 
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -46,6 +47,7 @@ export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
     FiliaisService,
     DocumentService,
     BusinessPartnersService,
+    PaymentService,
     ImportacaoToSap,
     MaskApplierService,
     {

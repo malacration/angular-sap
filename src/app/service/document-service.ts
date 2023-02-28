@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PurchaseDownPayment } from '../model/sap/purchase-down-Payment';
+import { DownPayment } from '../model/sap/adiantamentos/Down-Payment';
+import { PurchaseDownPayment } from '../model/sap/adiantamentos/purchase-down-Payment';
 import { PurchaseInvoice } from '../model/sap/purchase-Invoice';
 import { ConfigService } from './config-service';
 
@@ -12,6 +13,11 @@ export class DocumentService {
 
   adiantamentoFornecedor(document: PurchaseDownPayment): Observable<any> {
     let url = this.host + '/b1s/v1/PurchaseDownPayments';
+    return this.http.post<String>(url, document);
+  }
+
+  adiantamentoCliente(document: DownPayment): Observable<any> {
+    let url = this.host + '/b1s/v1/DownPayments';
     return this.http.post<String>(url, document);
   }
 

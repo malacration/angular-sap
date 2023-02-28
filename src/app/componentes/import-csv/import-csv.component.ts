@@ -3,10 +3,13 @@ import { Buffer } from 'buffer';
 import * as moment from 'moment';
 import { MaskApplierService } from 'ngx-mask';
 import { concatAll, delay, from, fromEvent, Observable, of, pipe, share, Subscribable, switchMap, switchMapTo } from 'rxjs';
+import { CarregaCsv } from 'src/app/model/importacao/carrega-csv';
 import { ParceiroNegocio } from 'src/app/model/importacao/parceiro-negocio';
+import { Payment } from 'src/app/model/sap/payment';
 import { BusinessPartnersService } from 'src/app/service/business-partners.service';
 import { FiliaisService } from 'src/app/service/filiais.service';
 import { ImportacaoToSap } from 'src/app/service/importao-to-sap.service';
+import { PaymentService } from 'src/app/service/payment.service';
 import { DocumentService } from '../../service/document-service'
 
 
@@ -22,7 +25,8 @@ export class ImportCsvComponent implements OnInit {
     private maskService: MaskApplierService,
     private bussinesPartners : BusinessPartnersService,
     private filialService : FiliaisService,
-    private documentoService : DocumentService
+    private documentoService : DocumentService,
+    private paymentService : PaymentService
     ) {}
   
   progression = 0
@@ -69,55 +73,7 @@ export class ImportCsvComponent implements OnInit {
   }
 
   carregarCsv(){
-    let cpfParceiro = 2;
-    let numDocumentoFiscal = 3;
-    let cnfpjFilial = 0;
-    let valor = 1;
-    let dataVencimento = 5;
-    let nossoNumeroRow = 6;
-    this.dados = new Array()
-    let filial = '';
-
-    for (let index = 1; index < this.csvToRowArray.length; index++) {
-      let row = this.csvToRowArray[index].split(";");
-      let cpfCnpj = ""
-      row[cpfParceiro] = row[cpfParceiro].trim();
-      if(row[cpfParceiro].length == 14 && row[cpfParceiro].split('.').length ==1)
-        cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"99.999.999/9999-99")
-      else if(row[cpfParceiro].length == 11 && row[cpfParceiro].split('.').length == 1){
-        console.log("aplicando mascara cpf")
-        cpfCnpj = this.maskService.applyMask(row[cpfParceiro],"999.999.999-99")
-      }
-      else
-        cpfCnpj = row[cpfParceiro]
-
-      if(row[cnfpjFilial].length == 14 && row[cnfpjFilial].split('.').length ==1)
-        filial = this.maskService.applyMask(row[cnfpjFilial],"99.999.999/9999-99")
-      else
-        filial = row[cnfpjFilial]
-      
-      let nossoNumero = ''
-      if(row[nossoNumeroRow])
-        nossoNumero = row[nossoNumeroRow].trim()
-
-      if(cpfCnpj){
-        let dadosFiltrado = this.dados.filter(it => it.cpfCnpj == cpfCnpj)
-        if(dadosFiltrado.length == 1){
-          dadosFiltrado[0].addDocumento(new Number(row[numDocumentoFiscal]).valueOf(),
-            filial,
-            new Number(row[valor]).valueOf(),
-            moment(row[dataVencimento],"YYYY-MM-DD").toDate(),nossoNumero)
-        }
-        else{
-          this.dados.push(new ParceiroNegocio(
-            cpfCnpj,
-            new Number(row[numDocumentoFiscal]).valueOf(),
-            filial,
-            new Number(row[valor]).valueOf(),
-            moment(row[dataVencimento],"YYYY-MM-DD").toDate(),nossoNumero))
-        }
-      }
-    }
+    this.dados = new CarregaCsv(this.maskService).carrega(this.csvToRowArray)
   }
 
   onFileSelect(input) {
@@ -142,6 +98,46 @@ export class ImportCsvComponent implements OnInit {
         it.error = error;
       }
     })    
+  }
+
+  cadastrarAdiantamentoCliente(){
+    alert("Cliente")
+  }
+
+  cadastrarAdiantamentoFornecedor(it : ParceiroNegocio){
+    
+    this.paymentService.apply(new Payment("FOR0000008",500,336)).subscribe(it =>{
+      alert("funcionou")
+    })
+    
+
+    // this.importaoToSaoService.parseAdiantamentoFornecedor(it)
+    // .subscribe(resul => {
+    //   resul.forEach(nf => {
+    //     try{
+    //       this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+    //         nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
+    //         nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
+    //         this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
+    //           () => {
+    //             this.documentoService.adiantamentoFornecedor(nf).subscribe(it =>{
+    //               it.error = "Nota cadastrada com sucesso"
+    //             },
+    //             (err) => {
+    //               if(err && (!err.error.error.message.value.includes('já existe') 
+    //                   && !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
+    //                 it.error = err.error.error.message.value
+    //               else if(!it.error)
+    //                 it.error = "Nota cadastrada com sucesso"
+    //             })
+    //         })
+    //       })
+    //     }catch(e){
+    //       console.log("erro cadastra nf")
+    //     }
+        
+    //   })
+    // })
   }
 
   cadastrarNfEntrada(it : ParceiroNegocio){

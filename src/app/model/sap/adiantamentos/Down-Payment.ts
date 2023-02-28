@@ -1,0 +1,19 @@
+import { Document } from '../document';
+import { DocumentLine } from '../document-line';
+
+export class DownPayment extends Document {
+  constructor(document : Document) {
+    super(
+      document.CardCode,
+      document.DocumentLines,
+      document.SequenceSerial,
+      document.cnpjFilial,
+      document.SequenceCode);
+      this.DocumentInstallments = document.DocumentInstallments
+      this.SequenceCode -1;
+  }
+  DownPaymentType: String = 'dptInvoice';
+  InvoiceType : "it_DownPayment"
+  DocEntry : number
+  
+}

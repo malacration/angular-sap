@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('login', JSON.stringify(this.login));
       localStorage.setItem('B1SESSION', it.SessionId.toString());
       this.isLogado = true;
-      this.setCookie("B1SESSION",it.SessionId,it.SessionTimeout)
+      // this.setCookie("B1SESSION",it.SessionId,it.SessionTimeout)
     });
   }
 
