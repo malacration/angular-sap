@@ -31,8 +31,8 @@ export class Payment {
 }
 
 export enum DocTypeEnum{
-    rCustomer,
-    rSupplier,
+    rCustomer = 'rCustomer',
+    rSupplier = 'rSupplier',
 }
 
 export class CashFlowAssignments{
