@@ -16,7 +16,7 @@ export class Document {
 
   constructor(cardCode: String, documentLines: Array<DocumentLine>,
     numeroNf : number, cnpjFilial : String, sequenceCode : number = -1) {
-   this.CardCode = cardCode;
+    this.CardCode = cardCode;
     this.DocumentLines = documentLines;
     this.DocTotal = documentLines
       .map((it) => it.LineTotal)

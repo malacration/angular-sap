@@ -106,7 +106,7 @@ export class ImportCsvComponent implements OnInit {
 
   cadastrarAdiantamentoFornecedor(it : ParceiroNegocio){
     
-    this.paymentService.apply(new Payment("FOR0000008",500,78)).subscribe(it =>{
+    this.paymentService.apply(new Payment("FOR0000008",7,500,78)).subscribe(it =>{
       alert("funcionou")
     })
     
