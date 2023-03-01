@@ -16,16 +16,18 @@ export class Payment {
     constructor(cardCode : string, BPLID: number, CashSum : number, documentDocEntry : number){
         this.CardCode = cardCode;
         this.CashSum = CashSum;
-        this.CashAccount = "1.1.1.002.06000"
+        
         let invoiceType = ''
         this.BPLID = BPLID
         if(cardCode.split("FOR").length == 2){
             invoiceType = 'it_PurchaseDownPayment'
             this.DocType = DocTypeEnum.rSupplier
+            this.CashAccount = "2.9.1.001.00007"
         }
         else if(cardCode.split("CLI").length == 2){
             invoiceType = 'it_DownPayment'
             this.DocType = DocTypeEnum.rCustomer
+            this.CashAccount = "1.9.1.001.00002"
         }
             
         this.PaymentInvoices.push(new PaymentInvoices(documentDocEntry,CashSum,invoiceType))
