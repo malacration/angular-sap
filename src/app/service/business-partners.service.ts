@@ -15,15 +15,15 @@ export class BusinessPartnersService {
 
 
 
-  getFornecedorByCpfCnpj(cpfCnpj : String): Observable<String> {
+  getFornecedorByCpfCnpj(cpfCnpj : String): Observable<string> {
     return this.getCardCodeByCnpjAndSeries(cpfCnpj,'S')
   }
 
-  getClienteByCpfCnpj(cpfCnpj : String): Observable<String> {
+  getClienteByCpfCnpj(cpfCnpj : String): Observable<string> {
     return this.getCardCodeByCnpjAndSeries(cpfCnpj,'C')
   }
 
-  getCardCodeByCnpjAndSeries(cpfCnpj : String, cardType : String): Observable<String> {
+  getCardCodeByCnpjAndSeries(cpfCnpj : String, cardType : String): Observable<string> {
     let isCpf = false;
 
     if(cpfCnpj.length == 14)
