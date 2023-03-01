@@ -5,6 +5,7 @@ import { FiliaisService } from "./filiais.service";
 import {PurchaseInvoice} from "../model/sap/purchase-Invoice"
 import { map, Observable } from "rxjs";
 import { PurchaseDownPayment } from "../model/sap/adiantamentos/purchase-down-Payment";
+import { DownPayment } from "../model/sap/adiantamentos/Down-Payment";
 
 @Injectable()
 export class ImportacaoToSap{
@@ -29,6 +30,13 @@ export class ImportacaoToSap{
         return this.businessPartners.getFornecedorByCpfCnpj(parceiro.cpfCnpj)
         .pipe(map(cardCode => 
             parceiro.documentosFiscais.map(it => it.getPurchaseDownPayment(cardCode))
+        ))
+    }
+
+    parseAdiantamentoCliente(parceiro : ParceiroNegocio) : Observable<Array<DownPayment>> {
+        return this.businessPartners.getFornecedorByCpfCnpj(parceiro.cpfCnpj)
+        .pipe(map(cardCode => 
+            parceiro.documentosFiscais.map(it => it.getDownPayment(cardCode))
         ))
     }
 }

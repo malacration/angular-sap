@@ -100,8 +100,36 @@ export class ImportCsvComponent implements OnInit {
     })    
   }
 
-  cadastrarAdiantamentoCliente(){
-    alert("Cliente")
+  cadastrarAdiantamentoCliente(it : ParceiroNegocio){
+    this.importaoToSaoService.parseAdiantamentoCliente(it)
+    .subscribe(resul => {
+      resul.forEach(nf => {
+        try{
+          this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+            nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
+            nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
+            this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
+              () => { this.documentoService.adiantamentoCliente(nf).subscribe(adiantamento =>{
+                  this.paymentService.apply(new Payment(nf.CardCode,filialCod.BPLID,nf.DocTotal,adiantamento.DocEntry)).subscribe(it =>{
+                    console.log("Baixa do adiantamento")
+                  })
+                  it.error = "Nota cadastrada com sucesso"
+                },
+                (err) => {
+                  if(err && (!err.error.error.message.value.includes('já existe') 
+                      && !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
+                    it.error = err.error.error.message.value
+                  else if(!it.error)
+                    it.error = "Nota cadastrada com sucesso"
+                })
+            })
+          })
+        }catch(e){
+          console.log("erro cadastra nf")
+        }
+        
+      })
+    })
   }
 
   cadastrarAdiantamentoFornecedor(it : ParceiroNegocio){
