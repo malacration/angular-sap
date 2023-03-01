@@ -100,6 +100,16 @@ export class ImportCsvComponent implements OnInit {
     })    
   }
 
+  allAdiantamentoCliente(){
+    this.dados.filter(it => it.codSap != "?").forEach(it => {
+      try{
+        this.cadastrarAdiantamentoCliente(it)
+      }catch(error){
+        it.error = error;
+      }
+    })    
+  }
+
   cadastrarAdiantamentoCliente(it : ParceiroNegocio){
     this.importaoToSaoService.parseAdiantamentoCliente(it)
     .subscribe(resul => {
@@ -130,6 +140,16 @@ export class ImportCsvComponent implements OnInit {
         
       })
     })
+  }
+
+  allAdiantamentoFornecedor(){
+    this.dados.filter(it => it.codSap != "?").forEach(it => {
+      try{
+        this.cadastrarAdiantamentoFornecedor(it)
+      }catch(error){
+        it.error = error;
+      }
+    })    
   }
 
   cadastrarAdiantamentoFornecedor(it : ParceiroNegocio){
