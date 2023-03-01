@@ -105,39 +105,35 @@ export class ImportCsvComponent implements OnInit {
   }
 
   cadastrarAdiantamentoFornecedor(it : ParceiroNegocio){
-    
-    this.paymentService.apply(new Payment("FOR0000008",7,500,78)).subscribe(it =>{
-      alert("funcionou")
-    })
-    
-
-    // this.importaoToSaoService.parseAdiantamentoFornecedor(it)
-    // .subscribe(resul => {
-    //   resul.forEach(nf => {
-    //     try{
-    //       this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
-    //         nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
-    //         nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
-    //         this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
-    //           () => {
-    //             this.documentoService.adiantamentoFornecedor(nf).subscribe(it =>{
-    //               it.error = "Nota cadastrada com sucesso"
-    //             },
-    //             (err) => {
-    //               if(err && (!err.error.error.message.value.includes('já existe') 
-    //                   && !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
-    //                 it.error = err.error.error.message.value
-    //               else if(!it.error)
-    //                 it.error = "Nota cadastrada com sucesso"
-    //             })
-    //         })
-    //       })
-    //     }catch(e){
-    //       console.log("erro cadastra nf")
-    //     }
+    this.importaoToSaoService.parseAdiantamentoFornecedor(it)
+    .subscribe(resul => {
+      resul.forEach(nf => {
+        try{
+          this.filialService.getByCnpj(nf.cnpjFilial).subscribe(filialCod => {
+            nf.BPL_IDAssignedToInvoice = filialCod.BPLID;
+            nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
+            this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
+              () => { this.documentoService.adiantamentoFornecedor(nf).subscribe(adiantamento =>{
+                  this.paymentService.apply(new Payment(nf.CardCode,filialCod.BPLID,nf.DocTotal,nf.DocEntry)).subscribe(it =>{
+                    console.log("Baixa do adiantamento")
+                  })
+                  it.error = "Nota cadastrada com sucesso"
+                },
+                (err) => {
+                  if(err && (!err.error.error.message.value.includes('já existe') 
+                      && !err.error.error.message.value.includes('Nota Fiscal number was already used for a BP')))
+                    it.error = err.error.error.message.value
+                  else if(!it.error)
+                    it.error = "Nota cadastrada com sucesso"
+                })
+            })
+          })
+        }catch(e){
+          console.log("erro cadastra nf")
+        }
         
-    //   })
-    // })
+      })
+    })
   }
 
   cadastrarNfEntrada(it : ParceiroNegocio){

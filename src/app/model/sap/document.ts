@@ -2,7 +2,7 @@ import { DocumentLine } from './document-line';
 import { Installment } from './installment';
 
 export class Document {
-  CardCode: String;
+  CardCode: string;
   DocumentLines: Array<DocumentLine>;
   DocTotal: number;
   BPL_IDAssignedToInvoice
@@ -14,7 +14,7 @@ export class Document {
   SequenceSerial : number
   cnpjFilial : String;
 
-  constructor(cardCode: String, documentLines: Array<DocumentLine>,
+  constructor(cardCode: string, documentLines: Array<DocumentLine>,
     numeroNf : number, cnpjFilial : String, sequenceCode : number = -1) {
     this.CardCode = cardCode;
     this.DocumentLines = documentLines;
