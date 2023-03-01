@@ -114,7 +114,7 @@ export class ImportCsvComponent implements OnInit {
             nf.DocumentLines[0].WarehouseCode = filialCod.DefaultWarehouseID;
             this.bussinesPartners.updateFiliais(nf.CardCode,filialCod.BPLID).subscribe(
               () => { this.documentoService.adiantamentoFornecedor(nf).subscribe(adiantamento =>{
-                  this.paymentService.apply(new Payment(nf.CardCode,filialCod.BPLID,nf.DocTotal,nf.DocEntry)).subscribe(it =>{
+                  this.paymentService.apply(new Payment(nf.CardCode,filialCod.BPLID,nf.DocTotal,adiantamento.DocEntry)).subscribe(it =>{
                     console.log("Baixa do adiantamento")
                   })
                   it.error = "Nota cadastrada com sucesso"
