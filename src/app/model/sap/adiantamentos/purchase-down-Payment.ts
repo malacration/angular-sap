@@ -1,6 +1,9 @@
 import { Document } from '../document';
 
 export class PurchaseDownPayment extends Document {
+  
+  U_TX_DocEntryRef : number
+
   constructor(document : Document) {
     super(
       document.CardCode,
@@ -17,6 +20,7 @@ export class PurchaseDownPayment extends Document {
         it.TaxCode = undefined
       })
       this.DocumentInstallments = undefined
+      this.U_TX_DocEntryRef = document.SequenceSerial
   }  
   DownPaymentType: String = 'dptInvoice';
   InvoiceType : "it_PurchaseDownPayment"
