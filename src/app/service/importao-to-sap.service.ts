@@ -34,7 +34,7 @@ export class ImportacaoToSap{
     }
 
     parseAdiantamentoCliente(parceiro : ParceiroNegocio) : Observable<Array<DownPayment>> {
-        return this.businessPartners.getFornecedorByCpfCnpj(parceiro.cpfCnpj)
+        return this.businessPartners.getClienteByCpfCnpj(parceiro.cpfCnpj)
         .pipe(map(cardCode => 
             parceiro.documentosFiscais.map(it => it.getDownPayment(cardCode))
         ))

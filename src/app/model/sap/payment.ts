@@ -8,6 +8,7 @@ export class Payment {
     CardCode : string;
     CashAccount : string
     DocDate : "2022-12-31";
+    TransferDate : "2022-12-31";
     CashSum : number
     PaymentInvoices : PaymentInvoices[] = new Array();
     DocType : DocTypeEnum
