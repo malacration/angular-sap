@@ -11,7 +11,7 @@ export class Parcela{
         this.U_LinhaDigitavel = U_LinhaDigitavel
     }
 
-    get() : Installment{
-        return new Installment(this.dataVencimento,this.valor,this.U_LinhaDigitavel)
+    get() : Installment {
+        return new Installment(new Date(2022, 11, 31),this.valor,this.U_LinhaDigitavel)
     }
 }

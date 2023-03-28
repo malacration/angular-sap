@@ -32,7 +32,6 @@ export class DocumentoFiscal{
         let document = new Document(cardCode,docLines,this.numeroDocumento,this.cnpjFilial)
         document.DocumentInstallments = this.parcelas.map(it => it.get())
         return document
-
     }
 
     getPurchaseInvoice(cardCode : string) : PurchaseInvoice{
