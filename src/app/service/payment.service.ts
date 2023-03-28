@@ -21,7 +21,7 @@ export class PaymentService{
     }
 
     contasReceber(payment : Payment){
-        let url = this.host + '/b1s/v1/IncomePayments';
+        let url = this.host + '/b1s/v1/IncomingPayments';
         return this.http.post<String>(url, payment);
     }
 
