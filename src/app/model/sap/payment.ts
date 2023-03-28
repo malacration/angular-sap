@@ -56,31 +56,3 @@ export class PaymentInvoices{
         this.InvoiceType = invoiceType;
     }
 }
-
-// //vendor ]
-// {
-//     "CardCode": "v001",
-//     "CashFlowAssignments": [
-//         {
-//             "AmountLC": "101",
-//             "PaymentMeans": "pmtBankTransfer"
-//         }
-//     ],
-//     "TransferAccount": "_SYS00000000004",
-//     "TransferDate": "2014-03-27",
-//     "TransferSum": "101"
-// }
-
-// // incoming 
-
-// {
-//     "CardCode": "c001",
-//     "CashAccount": "_SYS00000000002",
-//     "CashFlowAssignments": [
-//         {
-//             "AmountLC": "110",
-//             "PaymentMeans": "pmtCash"
-//         }
-//     ],
-//     "CashSum": "110"
-// }
