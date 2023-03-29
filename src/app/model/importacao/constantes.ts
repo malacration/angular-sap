@@ -13,3 +13,4 @@
 //01.001
 export const COD_IMPOSTO = "zero"
 export const COD_ITEM = "USO0000637"
+export const CONTRA_PARTIDA_CLIENTE = ""
